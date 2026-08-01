@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cheto · Dashboard Carmine</title>
+<style>
+:root {
+  color-scheme: light;
+  --bg: #faf9f7;
+  --card: #ffffff;
+  --border: #e5e3dd;
+  --ink: #1a1a19;
+  --ink-2: #5f5e5a;
+  --ink-3: #898781;
+  --blue: #2a78d6;
+  --orange: #eb6834;
+  --green: #1baf7a;
+  --red: #d03b3b;
+  --amber: #eda100;
+  --radius: 10px;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 24px 20px 48px;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.wrap { max-width: 860px; margin: 0 auto; }
+h1 { font-size: 22px; font-weight: 600; margin: 0 0 4px; }
+h2 { font-size: 17px; font-weight: 600; margin: 32px 0 12px; }
+.sub { color: var(--ink-3); font-size: 13px; margin: 0 0 24px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+.kpi { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
+.kpi .lbl { font-size: 12px; color: var(--ink-3); margin: 0 0 2px; }
+.kpi .val { font-size: 23px; font-weight: 600; margin: 0; letter-spacing: -0.3px; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th { text-align: left; font-weight: 600; color: var(--ink-2); font-size: 12px; text-transform: uppercase; letter-spacing: 0.4px; padding: 8px 10px 8px 0; border-bottom: 1px solid var(--border); }
+td { padding: 9px 10px 9px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+tfoot td { font-weight: 600; border-top: 2px solid var(--border); border-bottom: none; }
+.num { text-align: right; white-space: nowrap; }
+.legend { display: flex; flex-wrap: wrap; gap: 18px; font-size: 12px; color: var(--ink-2); margin-bottom: 10px; }
+.legend span { display: flex; align-items: center; gap: 6px; }
+.dot { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+.dash { width: 16px; height: 0; border-top: 2px dashed var(--orange); display: inline-block; }
+.chartbox { position: relative; height: 300px; }
+form { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; align-items: end; }
+label { display: block; font-size: 12px; color: var(--ink-2); margin-bottom: 4px; }
+input, textarea {
+  width: 100%; padding: 8px 10px; font: inherit; font-size: 14px;
+  border: 1px solid var(--border); border-radius: 6px; background: #fff; color: var(--ink);
+}
+input:focus, textarea:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(42,120,214,0.12); }
+button {
+  padding: 9px 18px; font: inherit; font-size: 14px; font-weight: 500;
+  background: var(--ink); color: #fff; border: none; border-radius: 6px; cursor: pointer;
+}
+button:hover { opacity: 0.88; }
+button.ghost { background: transparent; color: var(--ink-2); border: 1px solid var(--border); }
+.rule { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.rule:last-child { border-bottom: none; }
+.rule .n { flex: 0 0 26px; height: 26px; border-radius: 50%; background: #f0eee9; color: var(--ink-2); font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+.rule .txt { font-size: 14px; }
+.rule .txt b { font-weight: 600; }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.chip { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; margin: 0 5px 5px 0; }
+.ok { background: #e3f5ed; color: #0f6e56; }
+.no { background: #fbe9e9; color: #8f2222; }
+.warnbox { background: #fdf6e3; border: 1px solid #f0dfae; border-radius: var(--radius); padding: 14px 18px; font-size: 14px; }
+.empty { color: var(--ink-3); font-size: 14px; font-style: italic; padding: 12px 0; }
+footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border); color: var(--ink-3); font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Cheto · Fase 1 VLCKD</h1>
+  <p class="sub">Carmine · avvio 27 luglio 2026 · rivalutazione medica tra il 16 e il 23 agosto</p>
+
+  <div class="grid" id="kpis"></div>
+
+  <h2>Peso: reale contro previsto</h2>
+  <div class="card">
+    <div class="legend">
+      <span><i class="dot" style="background:#2a78d6"></i>Reale rilevato</span>
+      <span><i class="dash"></i>Traiettoria prevista</span>
+    </div>
+    <div class="chartbox"><canvas id="chart"></canvas></div>
+  </div>
+
+  <h2>Check-in di oggi</h2>
+  <div class="card">
+    <form id="form">
+      <div><label for="d">Data</label><input type="date" id="d" required></div>
+      <div><label for="p">Peso (kg)</label><input type="number" id="p" step="0.1" min="80" max="180" placeholder="116,1" required></div>
+      <div><label for="f">Fame (1-10)</label><input type="number" id="f" min="1" max="10" placeholder="5"></div>
+      <div><label for="n">Note</label><input type="text" id="n" placeholder="sonno, stress, sgarri"></div>
+      <div><button type="submit">Salva</button></div>
+    </form>
+    <div id="hist"></div>
+  </div>
+
+  <h2>Giornata tipo · rev. 2</h2>
+  <div class="card">
+    <table>
+      <thead><tr><th>Pasto</th><th>Cosa</th><th class="num">kcal</th><th class="num">Prot.</th><th class="num">Carbo</th></tr></thead>
+      <tbody>
+        <tr><td><b>Colazione</b></td><td>Yogurt greco 130 g + proteine 30 g + mandorle 6 g</td><td class="num">310</td><td class="num">36 g</td><td class="num">6 g</td></tr>
+        <tr><td><b>Pranzo</b></td><td>Tonno al naturale 140 g + insalata 80 g + pomodorini 80 g + olio 5 g</td><td class="num">242</td><td class="num">38 g</td><td class="num">4 g</td></tr>
+        <tr><td><b>Spuntino 16:30</b></td><td>1 uovo sodo + 60 g albume (oppure 2 uova, oppure 30 g bresaola)</td><td class="num">98</td><td class="num">13 g</td><td class="num">0,5 g</td></tr>
+        <tr><td><b>Cena</b></td><td>Pollo 150 g + zucchine 150 g + verdura a foglia 150 g + olio 5 g</td><td class="num">340</td><td class="num">50 g</td><td class="num">5 g</td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="2">Totale giornata</td><td class="num">990</td><td class="num">137 g</td><td class="num">16 g</td></tr></tfoot>
+    </table>
+  </div>
+
+  <div class="warnbox" style="margin-top:12px">
+    <b>Da validare col medico.</b> Il protocollo concordato era ~800 kcal. Questa versione a 990 nasce dagli episodi di fame del 30 luglio e 1 agosto: mangiare con struttura a 990 funziona meglio che stare a 812 e finire a 1.400 con la cena saltata. Il deficit resta di circa 1.600 kcal al giorno. La decisione però spetta al medico, non a noi.
+  </div>
+
+  <h2>Le quattro regole che contano</h2>
+  <div class="card">
+    <div class="rule"><div class="n">1</div><div class="txt"><b>Olio: cucchiaino, non cucchiaio.</b> 5 g a pasto a crudo, spruzzino per cuocere. Un cucchiaio pieno sono 10-12 g: usarne uno a pasto vale 135-190 kcal invisibili al giorno. È il buco più grande del tracking.</div></div>
+    <div class="rule"><div class="n">2</div><div class="txt"><b>Sale: 7-12 g al giorno di sale normale.</b> In chetosi i reni espellono sodio e la carenza si manifesta come fame di salato verso sera. Un pizzico non è una dose: serve mezzo cucchiaino raso. Il sale iposodico (KCl) dà potassio, non sodio, e non risolve.</div></div>
+    <div class="rule"><div class="n">3</div><div class="txt"><b>Verdura a volontà per il volume.</b> 150-200 g extra di foglia, cetriolo o finocchio a cena costano 20-45 kcal e riempiono lo stomaco. La sazietà da distensione è un canale separato da quello calorico: è gratis, va usata.</div></div>
+    <div class="rule"><div class="n">4</div><div class="txt"><b>Mai saltare un pasto per compensare.</b> Il taglio punitivo di oggi è l'attacco di fame di stasera. La struttura è il farmaco, non la restrizione.</div></div>
+  </div>
+
+  <h2>Semaforo alimenti</h2>
+  <div class="cols">
+    <div class="card">
+      <p style="margin:0 0 10px;font-size:13px;color:var(--ink-2)"><b>Via libera</b></p>
+      <span class="chip ok">Uova e albumi</span><span class="chip ok">Pollo, tacchino</span><span class="chip ok">Tonno, sgombro</span><span class="chip ok">Merluzzo, platessa</span><span class="chip ok">Crostacei</span><span class="chip ok">Bresaola</span><span class="chip ok">Fiocchi di latte</span><span class="chip ok">Tomino, primo sale</span><span class="chip ok">Zucchine, spinaci</span><span class="chip ok">Insalata, cetriolo</span><span class="chip ok">Finocchio</span><span class="chip ok">Shirataki (konjac)</span><span class="chip ok">Caffè nero</span>
+    </div>
+    <div class="card">
+      <p style="margin:0 0 10px;font-size:13px;color:var(--ink-2)"><b>Fuori</b></p>
+      <span class="chip no">Noodles istantanei — 32 g carbo</span><span class="chip no">Mais tostato — 6,5 g su 10 g</span><span class="chip no">Piadina, pane</span><span class="chip no">Noccioline</span><span class="chip no">Wurstel</span><span class="chip no">Bulletproof coffee</span><span class="chip no">Liquid I.V. classica</span><span class="chip no">Legumi (solo Fase 2)</span>
+      <p style="margin:12px 0 0;font-size:13px;color:var(--ink-2)">Le bustine di condimento dei noodles, da sole, valgono 2-4 g di carbo e circa 2 g di sale: usabili sugli shirataki.</p>
+    </div>
+  </div>
+
+  <h2>Segnali di stop</h2>
+  <div class="card">
+    <p style="margin:0 0 8px;font-size:14px">Fermarsi e sentire il medico in caso di: <b>svenimenti, palpitazioni, capogiri forti, crampi importanti, nausea persistente</b>.</p>
+    <p style="margin:0;font-size:14px;color:var(--ink-2)">Inoltre: se la fame resta sopra 7/10 per più giorni consecutivi nonostante spuntino e volume, è un dato clinico da riferire — non una debolezza. Può indicare che il livello calorico è troppo basso.</p>
+  </div>
+
+  <footer>
+    Dashboard generata il 2 agosto 2026. I check-in inseriti restano salvati in questo browser.
+    Fabbisogno stimato (TDEE): 2.600 kcal · uomo, 37 anni, 183 cm, sedentario.
+    Le stime nutrizionali usano tabelle standard per 100 g, margine ±5-10%.
+  </footer>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
+<script>
+(function () {
+  var KEY = 'cheto_checkins_v1';
+  var START = new Date(2026, 6, 27);
+  var DAYS = 28;
+  var W0 = 118.0;
+
+  var seed = [
+    { d: '2026-07-27', p: 118.0 },
+    { d: '2026-07-28', p: 116.7 },
+    { d: '2026-07-29', p: 115.7 },
+    { d: '2026-07-30', p: 115.2 },
+    { d: '2026-07-31', p: 115.5 },
+    { d: '2026-08-02', p: 116.1 }
+  ];
+
+  function load() {
+    try { return JSON.parse(localStorage.getItem(KEY)) || []; }
+    catch (e) { return []; }
+  }
+  function save(rows) {
+    try { localStorage.setItem(KEY, JSON.stringify(rows)); } catch (e) {}
+  }
+  function all() {
+    var map = {};
+    seed.forEach(function (r) { map[r.d] = { d: r.d, p: r.p, f: null, n: '' }; });
+    load().forEach(function (r) { map[r.d] = r; });
+    return Object.keys(map).sort().map(function (k) { return map[k]; });
+  }
+  function iso(dt) {
+    return dt.getFullYear() + '-' + String(dt.getMonth() + 1).padStart(2, '0') + '-' + String(dt.getDate()).padStart(2, '0');
+  }
+  function labelOf(dt) { return dt.getDate() + '/' + (dt.getMonth() + 1); }
+  function fmt(n, dec) { return Number(n).toFixed(dec === undefined ? 1 : dec).replace('.', ','); }
+
+  var labels = [], previsto = [], keys = [];
+  for (var t = 0; t < DAYS; t++) {
+    var dt = new Date(START.getTime() + t * 86400000);
+    labels.push(labelOf(dt));
+    keys.push(iso(dt));
+    previsto.push(Math.round((W0 - 0.23 * t - 2.6 * (1 - Math.exp(-t / 2.0))) * 100) / 100);
+  }
+
+  var chart = null;
+
+  function render() {
+    var rows = all();
+    var byDate = {};
+    rows.forEach(function (r) { byDate[r.d] = r.p; });
+    var reale = keys.map(function (k) { return byDate[k] === undefined ? null : byDate[k]; });
+
+    var pesi = rows.map(function (r) { return r.p; });
+    var last = pesi[pesi.length - 1];
+    var min = Math.min.apply(null, pesi);
+    var giorno = rows.length ? Math.round((new Date(rows[rows.length - 1].d) - START) / 86400000) + 1 : 1;
+
+    document.getElementById('kpis').innerHTML =
+      kpi('Peso attuale', fmt(last) + ' kg', '') +
+      kpi('Calo totale', '−' + fmt(W0 - last) + ' kg', 'color:#0f6e56') +
+      kpi('Minimo toccato', fmt(min) + ' kg', '') +
+      kpi('Giorno di Fase 1', giorno + ' di 28', '');
+
+    var hist = rows.slice().reverse().slice(0, 8);
+    var h = '<table style="margin-top:18px"><thead><tr><th>Data</th><th class="num">Peso</th><th class="num">Fame</th><th>Note</th></tr></thead><tbody>';
+    hist.forEach(function (r) {
+      var parts = r.d.split('-');
+      h += '<tr><td>' + parts[2] + '/' + parts[1] + '</td><td class="num">' + fmt(r.p) + ' kg</td><td class="num">' +
+           (r.f ? r.f + '/10' : '—') + '</td><td style="color:var(--ink-2)">' + (r.n ? String(r.n).replace(/[<>]/g, '') : '—') + '</td></tr>';
+    });
+    h += '</tbody></table>';
+    document.getElementById('hist').innerHTML = h;
+
+    if (chart) {
+      chart.data.datasets[1].data = reale;
+      chart.update();
+      return;
+    }
+    chart = new Chart(document.getElementById('chart'), {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [
+          { label: 'Previsto', data: previsto, borderColor: '#eb6834', borderWidth: 2, borderDash: [6, 5], pointRadius: 0, pointHoverRadius: 4, fill: false, tension: 0.2 },
+          { label: 'Reale', data: reale, borderColor: '#2a78d6', backgroundColor: 'rgba(42,120,214,0.10)', borderWidth: 3, fill: true, tension: 0.25, pointRadius: 5, pointBackgroundColor: '#2a78d6', pointBorderColor: '#fff', pointBorderWidth: 2, spanGaps: true }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: { label: function (c) { return c.parsed.y === null ? null : c.dataset.label + ': ' + fmt(c.parsed.y) + ' kg'; } } }
+        },
+        scales: {
+          y: { min: 108.5, max: 118.5, ticks: { color: '#898781', stepSize: 2, callback: function (v) { return v.toFixed(0) + ' kg'; } }, grid: { color: '#e5e3dd' } },
+          x: { ticks: { color: '#898781', maxRotation: 0, autoSkipPadding: 14, font: { size: 11 } }, grid: { display: false } }
+        }
+      }
+    });
+  }
+
+  function kpi(l, v, style) {
+    return '<div class="kpi"><p class="lbl">' + l + '</p><p class="val" style="' + style + '">' + v + '</p></div>';
+  }
+
+  document.getElementById('d').value = iso(new Date());
+  document.getElementById('form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var d = document.getElementById('d').value;
+    var p = parseFloat(document.getElementById('p').value);
+    if (!d || isNaN(p)) { return; }
+    var f = parseInt(document.getElementById('f').value, 10);
+    var rows = load().filter(function (r) { return r.d !== d; });
+    rows.push({ d: d, p: Math.round(p * 10) / 10, f: isNaN(f) ? null : f, n: document.getElementById('n').value || '' });
+    rows.sort(function (a, b) { return a.d < b.d ? -1 : 1; });
+    save(rows);
+    document.getElementById('p').value = '';
+    document.getElementById('f').value = '';
+    document.getElementById('n').value = '';
+    render();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
