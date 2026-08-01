@@ -20,34 +20,43 @@
   --ink-2: #5f5e5a;
   --ink-3: #898781;
   --blue: #2a78d6;
+  --blue-bg: #e8f1fb;
   --orange: #eb6834;
   --radius: 10px;
 }
 * { box-sizing: border-box; }
 body {
-  margin: 0;
-  padding: 24px 18px 48px;
-  background: var(--bg);
-  color: var(--ink);
+  margin: 0; padding: 22px 16px 48px;
+  background: var(--bg); color: var(--ink);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  font-size: 15px;
-  line-height: 1.6;
-  -webkit-text-size-adjust: 100%;
+  font-size: 15px; line-height: 1.6; -webkit-text-size-adjust: 100%;
 }
 .wrap { max-width: 860px; margin: 0 auto; }
 h1 { font-size: 22px; font-weight: 600; margin: 0 0 4px; }
 h2 { font-size: 17px; font-weight: 600; margin: 32px 0 12px; }
-.sub { color: var(--ink-3); font-size: 13px; margin: 0 0 24px; }
+.sub { color: var(--ink-3); font-size: 13px; margin: 0 0 22px; }
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
 .kpi { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
 .kpi .lbl { font-size: 12px; color: var(--ink-3); margin: 0 0 2px; }
 .kpi .val { font-size: 23px; font-weight: 600; margin: 0; letter-spacing: -0.3px; }
 .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
+.today { border: 2px solid var(--blue); }
+.today .hd { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; margin-bottom: 14px; }
+.today .hd .day { font-size: 19px; font-weight: 600; }
+.today .hd .meta { font-size: 13px; color: var(--ink-2); }
+.badge { background: var(--blue-bg); color: #185fa5; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 20px; }
+.meal { display: flex; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--border); }
+.meal:last-child { border-bottom: none; }
+.meal .h { flex: 0 0 96px; font-size: 12px; color: var(--ink-3); font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; padding-top: 2px; }
+.meal .b { flex: 1; font-size: 14px; }
+.meal .b .kc { color: var(--ink-3); font-size: 13px; }
 table { width: 100%; border-collapse: collapse; font-size: 14px; }
 th { text-align: left; font-weight: 600; color: var(--ink-2); font-size: 12px; text-transform: uppercase; letter-spacing: 0.4px; padding: 8px 10px 8px 0; border-bottom: 1px solid var(--border); }
 td { padding: 9px 10px 9px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
 tr:last-child td { border-bottom: none; }
 tfoot td { font-weight: 600; border-top: 2px solid var(--border); border-bottom: none; }
+tr.now td { background: var(--blue-bg); font-weight: 600; }
+tr.past td { color: var(--ink-3); }
 .num { text-align: right; white-space: nowrap; }
 .legend { display: flex; flex-wrap: wrap; gap: 18px; font-size: 12px; color: var(--ink-2); margin-bottom: 10px; }
 .legend span { display: flex; align-items: center; gap: 6px; }
@@ -56,15 +65,9 @@ tfoot td { font-weight: 600; border-top: 2px solid var(--border); border-bottom:
 .chartbox { position: relative; height: 300px; }
 form { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; align-items: end; }
 label { display: block; font-size: 12px; color: var(--ink-2); margin-bottom: 4px; }
-input, textarea {
-  width: 100%; padding: 9px 10px; font: inherit; font-size: 16px;
-  border: 1px solid var(--border); border-radius: 6px; background: #fff; color: var(--ink);
-}
+input, textarea { width: 100%; padding: 9px 10px; font: inherit; font-size: 16px; border: 1px solid var(--border); border-radius: 6px; background: #fff; color: var(--ink); }
 input:focus, textarea:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(42,120,214,0.12); }
-button {
-  padding: 10px 18px; font: inherit; font-size: 15px; font-weight: 500;
-  background: var(--ink); color: #fff; border: none; border-radius: 6px; cursor: pointer;
-}
+button { padding: 10px 18px; font: inherit; font-size: 15px; font-weight: 500; background: var(--ink); color: #fff; border: none; border-radius: 6px; cursor: pointer; }
 button:active { opacity: 0.8; }
 button.ghost { background: transparent; color: var(--ink-2); border: 1px solid var(--border); font-size: 13px; padding: 7px 14px; }
 .tools { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
@@ -77,6 +80,7 @@ button.ghost { background: transparent; color: var(--ink-2); border: 1px solid v
 .ok { background: #e3f5ed; color: #0f6e56; }
 .no { background: #fbe9e9; color: #8f2222; }
 .warnbox { background: #fdf6e3; border: 1px solid #f0dfae; border-radius: var(--radius); padding: 14px 18px; font-size: 14px; }
+.scroll { overflow-x: auto; }
 footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border); color: var(--ink-3); font-size: 12px; }
 </style>
 </head>
@@ -84,9 +88,11 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border
 <div class="wrap">
 
   <h1>Cheto · Fase 1 VLCKD</h1>
-  <p class="sub">Carmine · avvio 27 luglio 2026 · rivalutazione medica tra il 16 e il 23 agosto</p>
+  <p class="sub">Carmine · avvio lunedì 27 luglio 2026 · rivalutazione medica tra il 16 e il 23 agosto</p>
 
-  <div class="grid" id="kpis"></div>
+  <div class="card today" id="today"></div>
+
+  <div class="grid" id="kpis" style="margin-top:20px"></div>
 
   <h2>Peso: reale contro previsto</h2>
   <div class="card">
@@ -116,22 +122,25 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border
     <div id="hist"></div>
   </div>
 
-  <h2>Giornata tipo · rev. 2</h2>
+  <h2>Calendario di Fase 1</h2>
+  <div class="card scroll"><div id="cal"></div></div>
+
+  <h2>Struttura fissa della giornata</h2>
   <div class="card">
     <table>
       <thead><tr><th>Pasto</th><th>Cosa</th><th class="num">kcal</th><th class="num">Prot.</th><th class="num">Carbo</th></tr></thead>
       <tbody>
         <tr><td><b>Colazione</b></td><td>Yogurt greco 130 g + proteine 30 g + mandorle 6 g</td><td class="num">310</td><td class="num">36 g</td><td class="num">6 g</td></tr>
-        <tr><td><b>Pranzo</b></td><td>Tonno al naturale 140 g + insalata 80 g + pomodorini 80 g + olio 5 g</td><td class="num">242</td><td class="num">38 g</td><td class="num">4 g</td></tr>
+        <tr><td><b>Pranzo</b></td><td>Varia secondo il giorno — vedi calendario</td><td class="num">~242</td><td class="num">~38 g</td><td class="num">~4 g</td></tr>
         <tr><td><b>Spuntino 16:30</b></td><td>1 uovo sodo + 60 g albume (oppure 2 uova, oppure 30 g bresaola)</td><td class="num">98</td><td class="num">13 g</td><td class="num">0,5 g</td></tr>
-        <tr><td><b>Cena</b></td><td>Pollo 150 g + zucchine 150 g + verdura a foglia 150 g + olio 5 g</td><td class="num">340</td><td class="num">50 g</td><td class="num">5 g</td></tr>
+        <tr><td><b>Cena</b></td><td>Varia secondo il giorno + verdura a foglia 150 g + olio 5 g</td><td class="num">~340</td><td class="num">~50 g</td><td class="num">~5 g</td></tr>
       </tbody>
-      <tfoot><tr><td colspan="2">Totale giornata</td><td class="num">990</td><td class="num">137 g</td><td class="num">16 g</td></tr></tfoot>
+      <tfoot><tr><td colspan="2">Totale giornata</td><td class="num">~990</td><td class="num">~137 g</td><td class="num">~16 g</td></tr></tfoot>
     </table>
   </div>
 
   <div class="warnbox" style="margin-top:12px">
-    <b>Da validare col medico.</b> Il protocollo concordato era ~800 kcal. Questa versione a 990 nasce dagli episodi di fame del 30 luglio e 1 agosto: mangiare con struttura a 990 funziona meglio che stare a 812 e finire a 1.400 con la cena saltata. Il deficit resta di circa 1.600 kcal al giorno. La decisione però spetta al medico.
+    <b>Da validare col medico.</b> Il protocollo concordato era ~800 kcal. Questa versione a 990 nasce dagli episodi di fame del 30 e 31 luglio: mangiare con struttura a 990 funziona meglio che stare a 812 e finire a 1.400 con la cena saltata. Il deficit resta di circa 1.600 kcal al giorno. La decisione però spetta al medico.
   </div>
 
   <h2>Le quattro regole che contano</h2>
@@ -162,7 +171,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border
   </div>
 
   <footer>
-    Ultimo aggiornamento del piano: 2 agosto 2026. I check-in inseriti qui restano salvati nel browser di questo dispositivo: usare Esporta e Importa per travasarli.
+    Ultimo aggiornamento: 1 agosto 2026. I check-in inseriti qui restano nel browser di questo dispositivo: usare Esporta e Importa per travasarli.
     Fabbisogno stimato (TDEE): 2.600 kcal · uomo, 37 anni, 183 cm, sedentario.
     Stime nutrizionali da tabelle standard per 100 g, margine ±5-10%. Questa pagina non sostituisce il parere medico.
   </footer>
@@ -176,6 +185,22 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border
   var START = new Date(2026, 6, 27);
   var DAYS = 28;
   var W0 = 118.0;
+  var GG = ['domenica','lunedì','martedì','mercoledì','giovedì','venerdì','sabato'];
+  var MM = ['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'];
+
+  var COLAZIONE = 'Yogurt greco 130 g + proteine in polvere 30 g + mandorle 6 g';
+  var SPUNTINO = '1 uovo sodo + 60 g albume (o 2 uova, o 30 g bresaola)';
+
+  // rotazione settimanale: indice 0 = domenica
+  var MENU = [
+    { pranzo: 'Hamburger di vitello 150 g + insalata mista + olio 5 g', cena: 'Tomino o primo sale 100 g + insalata e cetriolo 200 g', nota: 'Batch cooking: lessa le uova e prepara la teglia uova+spinaci per lunedì e martedì.' },
+    { pranzo: 'Insalatona: tonno al naturale 140 g + insalata 80 g + pomodorini 80 g (fredda)', cena: 'Petto di pollo 150 g + zucchine 150 g + verdura a foglia 150 g', nota: '' },
+    { pranzo: 'Teglia uova + spinaci (da riscaldare in fornetto)', cena: 'Merluzzo o platessa 200 g + insalata 150 g', nota: '' },
+    { pranzo: 'Insalatona: tonno o sgombro 140 g + cetriolo 100 g (fredda)', cena: 'Petto di pollo 150 g + zucchine 150 g + verdura a foglia 150 g', nota: '' },
+    { pranzo: 'Fiocchi di latte 200 g + pomodorini 80 g (freddo)', cena: 'Pesce bianco 200 g + zucchine 150 g + verdura a foglia', nota: '' },
+    { pranzo: 'Insalatona: sgombro al naturale 140 g + finocchio 100 g', cena: 'Hamburger di vitello 150 g + insalata mista 200 g', nota: '' },
+    { pranzo: 'Uova 2 + albume 60 g + verdura saltata, oppure gamberi 200 g + insalata', cena: 'Pesce bianco o gamberi 200 g + zucchine 150 g + verdura a foglia', nota: 'Giornata fuori casa: porta con te lo spuntino delle 16:30 già pronto.' }
+  ];
 
   var seed = [
     { d: '2026-07-27', p: 118.0 },
@@ -183,21 +208,22 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border
     { d: '2026-07-29', p: 115.7 },
     { d: '2026-07-30', p: 115.2 },
     { d: '2026-07-31', p: 115.5 },
-    { d: '2026-08-02', p: 116.1 }
+    { d: '2026-08-01', p: 116.1 }
   ];
 
   var $ = function (id) { return document.getElementById(id); };
   function load() { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return []; } }
-  function save(rows) { try { localStorage.setItem(KEY, JSON.stringify(rows)); } catch (e) {} }
+  function save(r) { try { localStorage.setItem(KEY, JSON.stringify(r)); } catch (e) {} }
   function all() {
-    var map = {};
-    seed.forEach(function (r) { map[r.d] = { d: r.d, p: r.p, f: null, n: '' }; });
-    load().forEach(function (r) { map[r.d] = r; });
-    return Object.keys(map).sort().map(function (k) { return map[k]; });
+    var m = {};
+    seed.forEach(function (r) { m[r.d] = { d: r.d, p: r.p, f: null, n: '' }; });
+    load().forEach(function (r) { m[r.d] = r; });
+    return Object.keys(m).sort().map(function (k) { return m[k]; });
   }
   function iso(dt) { return dt.getFullYear() + '-' + String(dt.getMonth() + 1).padStart(2, '0') + '-' + String(dt.getDate()).padStart(2, '0'); }
-  function fmt(n, dec) { return Number(n).toFixed(dec === undefined ? 1 : dec).replace('.', ','); }
+  function fmt(n) { return Number(n).toFixed(1).replace('.', ','); }
   function say(t) { $('msg').textContent = t; }
+  function dayIndex(dt) { return Math.round((new Date(dt.getFullYear(), dt.getMonth(), dt.getDate()) - START) / 86400000); }
 
   var labels = [], previsto = [], keys = [];
   for (var t = 0; t < DAYS; t++) {
@@ -207,24 +233,62 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border
     previsto.push(Math.round((W0 - 0.23 * t - 2.6 * (1 - Math.exp(-t / 2.0))) * 100) / 100);
   }
 
+  // ---- scheda di oggi ----
+  var oggi = new Date();
+  var idx = dayIndex(oggi);
+  var inFase = idx >= 0 && idx < DAYS;
+  var m = MENU[oggi.getDay()];
+  var settimana = Math.floor(idx / 7) + 1;
+
+  var head = inFase
+    ? '<span class="day">' + GG[oggi.getDay()].charAt(0).toUpperCase() + GG[oggi.getDay()].slice(1) + ' ' + oggi.getDate() + ' ' + MM[oggi.getMonth()] + '</span>' +
+      '<span class="badge">Giorno ' + (idx + 1) + ' di 28</span>' +
+      '<span class="meta">Settimana ' + settimana + ' · previsto ' + fmt(previsto[idx]) + ' kg</span>'
+    : '<span class="day">' + GG[oggi.getDay()].charAt(0).toUpperCase() + GG[oggi.getDay()].slice(1) + ' ' + oggi.getDate() + ' ' + MM[oggi.getMonth()] + '</span>' +
+      '<span class="badge">Fuori dalla Fase 1</span>';
+
+  $('today').innerHTML =
+    '<div class="hd">' + head + '</div>' +
+    meal('Colazione', COLAZIONE, '310 kcal · 36 g proteine') +
+    meal('Pranzo', m.pranzo, '~242 kcal · ~38 g proteine') +
+    meal('Ore 16:30', SPUNTINO, '98 kcal · 13 g proteine') +
+    meal('Cena', m.cena + ' + olio 5 g', '~340 kcal · ~50 g proteine') +
+    (m.nota ? '<p style="margin:14px 0 0;font-size:13px;color:var(--ink-2);border-top:1px solid var(--border);padding-top:12px"><b>Nota:</b> ' + m.nota + '</p>' : '');
+
+  function meal(h, b, kc) {
+    return '<div class="meal"><div class="h">' + h + '</div><div class="b">' + b + '<br><span class="kc">' + kc + '</span></div></div>';
+  }
+
+  // ---- calendario ----
+  var c = '<table><thead><tr><th>Giorno</th><th>Data</th><th>Pranzo</th><th>Cena</th><th class="num">Previsto</th></tr></thead><tbody>';
+  for (var i = 0; i < DAYS; i++) {
+    var dd = new Date(START.getTime() + i * 86400000);
+    var mm = MENU[dd.getDay()];
+    var cls = i === idx ? 'now' : (i < idx ? 'past' : '');
+    c += '<tr class="' + cls + '"><td>' + (i + 1) + '</td>' +
+         '<td>' + GG[dd.getDay()].slice(0, 3) + ' ' + dd.getDate() + '/' + (dd.getMonth() + 1) + '</td>' +
+         '<td>' + mm.pranzo + '</td><td>' + mm.cena + '</td>' +
+         '<td class="num">' + fmt(previsto[i]) + ' kg</td></tr>';
+  }
+  $('cal').innerHTML = c + '</tbody></table>';
+
+  // ---- grafico e storico ----
   var chart = null;
 
   function render() {
-    var rows = all();
-    var byDate = {};
+    var rows = all(), byDate = {};
     rows.forEach(function (r) { byDate[r.d] = r.p; });
     var reale = keys.map(function (k) { return byDate[k] === undefined ? null : byDate[k]; });
 
     var pesi = rows.map(function (r) { return r.p; });
     var last = pesi[pesi.length - 1];
     var min = Math.min.apply(null, pesi);
-    var giorno = Math.round((new Date(rows[rows.length - 1].d) - START) / 86400000) + 1;
 
     $('kpis').innerHTML =
       kpi('Peso attuale', fmt(last) + ' kg', '') +
       kpi('Calo totale', '−' + fmt(W0 - last) + ' kg', 'color:#0f6e56') +
       kpi('Minimo toccato', fmt(min) + ' kg', '') +
-      kpi('Giorno di Fase 1', giorno + ' di 28', '');
+      kpi('Scarto sul previsto', (inFase ? (last > previsto[idx] ? '+' : '−') + fmt(Math.abs(last - previsto[idx])) + ' kg' : '—'), '');
 
     var h = '<table style="margin-top:18px"><thead><tr><th>Data</th><th class="num">Peso</th><th class="num">Fame</th><th>Note</th></tr></thead><tbody>';
     rows.slice().reverse().slice(0, 10).forEach(function (r) {
@@ -237,20 +301,14 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border
     if (chart) { chart.data.datasets[1].data = reale; chart.update(); return; }
     chart = new Chart($('chart'), {
       type: 'line',
-      data: {
-        labels: labels,
-        datasets: [
-          { label: 'Previsto', data: previsto, borderColor: '#eb6834', borderWidth: 2, borderDash: [6, 5], pointRadius: 0, pointHoverRadius: 4, fill: false, tension: 0.2 },
-          { label: 'Reale', data: reale, borderColor: '#2a78d6', backgroundColor: 'rgba(42,120,214,0.10)', borderWidth: 3, fill: true, tension: 0.25, pointRadius: 5, pointBackgroundColor: '#2a78d6', pointBorderColor: '#fff', pointBorderWidth: 2, spanGaps: true }
-        ]
-      },
+      data: { labels: labels, datasets: [
+        { label: 'Previsto', data: previsto, borderColor: '#eb6834', borderWidth: 2, borderDash: [6, 5], pointRadius: 0, pointHoverRadius: 4, fill: false, tension: 0.2 },
+        { label: 'Reale', data: reale, borderColor: '#2a78d6', backgroundColor: 'rgba(42,120,214,0.10)', borderWidth: 3, fill: true, tension: 0.25, pointRadius: 5, pointBackgroundColor: '#2a78d6', pointBorderColor: '#fff', pointBorderWidth: 2, spanGaps: true }
+      ] },
       options: {
         responsive: true, maintainAspectRatio: false,
         interaction: { mode: 'index', intersect: false },
-        plugins: {
-          legend: { display: false },
-          tooltip: { callbacks: { label: function (c) { return c.parsed.y === null ? null : c.dataset.label + ': ' + fmt(c.parsed.y) + ' kg'; } } }
-        },
+        plugins: { legend: { display: false }, tooltip: { callbacks: { label: function (x) { return x.parsed.y === null ? null : x.dataset.label + ': ' + fmt(x.parsed.y) + ' kg'; } } } },
         scales: {
           y: { min: 108.5, max: 118.5, ticks: { color: '#898781', stepSize: 2, callback: function (v) { return v.toFixed(0) + ' kg'; } }, grid: { color: '#e5e3dd' } },
           x: { ticks: { color: '#898781', maxRotation: 0, autoSkipPadding: 14, font: { size: 11 } }, grid: { display: false } }
@@ -261,7 +319,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border
 
   function kpi(l, v, s) { return '<div class="kpi"><p class="lbl">' + l + '</p><p class="val" style="' + s + '">' + v + '</p></div>'; }
 
-  $('d').value = iso(new Date());
+  $('d').value = iso(oggi);
 
   $('form').addEventListener('submit', function (e) {
     e.preventDefault();
@@ -278,10 +336,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border
   });
 
   $('exp').addEventListener('click', function () {
-    var b = $('box');
-    b.style.display = 'block';
-    b.value = JSON.stringify(load());
-    b.select();
+    var b = $('box'); b.style.display = 'block'; b.value = JSON.stringify(load()); b.select();
     say('Copi questo testo e lo incolli sull\'altro dispositivo con Importa.');
   });
 
@@ -293,15 +348,14 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border
       return;
     }
     try {
-      var incoming = JSON.parse(b.value);
-      if (!Array.isArray(incoming)) { throw new Error('formato'); }
-      var map = {};
-      load().forEach(function (r) { map[r.d] = r; });
-      incoming.forEach(function (r) { if (r && r.d && typeof r.p === 'number') { map[r.d] = r; } });
-      var merged = Object.keys(map).sort().map(function (k) { return map[k]; });
-      save(merged);
+      var inc = JSON.parse(b.value);
+      if (!Array.isArray(inc)) { throw new Error('formato'); }
+      var mp = {};
+      load().forEach(function (r) { mp[r.d] = r; });
+      inc.forEach(function (r) { if (r && r.d && typeof r.p === 'number') { mp[r.d] = r; } });
+      save(Object.keys(mp).sort().map(function (k) { return mp[k]; }));
       b.style.display = 'none'; b.value = '';
-      say('Importati ' + incoming.length + ' record.');
+      say('Importati ' + inc.length + ' record.');
       render();
     } catch (err) { say('Testo non valido: controlli di aver incollato tutto.'); }
   });
@@ -309,8 +363,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border
   $('del').addEventListener('click', function () {
     if (confirm('Cancellare i check-in salvati su questo dispositivo? I dati storici del piano restano.')) {
       try { localStorage.removeItem(KEY); } catch (e) {}
-      say('Storico locale cancellato.');
-      render();
+      say('Storico locale cancellato.'); render();
     }
   });
 
