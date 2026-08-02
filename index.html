@@ -252,7 +252,8 @@ var SPUNTINO_DI = [0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1];
     { d: '2026-07-29', p: 115.7 },
     { d: '2026-07-30', p: 115.2 },
     { d: '2026-07-31', p: 115.5 },
-    { d: '2026-08-01', p: 116.1 }
+    { d: '2026-08-01', p: 116.1 },
+    { d: '2026-08-02', p: 116.6, f: null, n: 'Sera del 1/8 in spiaggia: 3 birre, pizza tonno e cipolla + un pezzo extra.' }
   ];
 
   var $ = function (id) { return document.getElementById(id); };
@@ -261,7 +262,7 @@ var SPUNTINO_DI = [0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1];
   function save(r) { try { localStorage.setItem(KEY, JSON.stringify(r)); } catch (e) {} }
   function all() {
     var m = {};
-    seed.forEach(function (r) { m[r.d] = { d: r.d, p: r.p, f: null, n: '' }; });
+    seed.forEach(function (r) { m[r.d] = { d: r.d, p: r.p, f: r.f == null ? null : r.f, n: r.n || '' }; });
     load().forEach(function (r) { m[r.d] = r; });
     return Object.keys(m).sort().map(function (k) { return m[k]; });
   }
