@@ -1,10 +1,24 @@
 # Pubblicare la dashboard su GitHub Pages
 
-Da fare **una volta sola**. Poi ogni aggiornamento richiede un solo comando.
+## La dashboard è online
+
+**https://ilcap9989.github.io/cheto/**
+
+Repository: [github.com/ilcap9989/cheto](https://github.com/ilcap9989/cheto) · pubblicato il 2 agosto 2026.
+
+Aprilo sul telefono e aggiungilo alla schermata Home: si comporta come un'app.
 
 ---
 
-## Prima volta
+## Aggiornare la pagina
+
+Il modo più semplice, senza Terminale: su GitHub apri il file da modificare, premi la matita, incolla il contenuto nuovo e premi *Commit changes*. La pagina si aggiorna entro un paio di minuti.
+
+In alternativa, se colleghi il repository locale (istruzioni sotto), basta `./deploy.sh`.
+
+---
+
+## Collegare il repository locale (facoltativo)
 
 ### 1. Crea il repository su GitHub
 
