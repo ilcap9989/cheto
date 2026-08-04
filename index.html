@@ -74,6 +74,14 @@ button.ghost { background:transparent; color:var(--ink-2); border:1px solid var(
 .ok { background:#e3f5ed; color:#0f6e56; }
 .no { background:#fbe9e9; color:#8f2222; }
 .warnbox { background:#fdf6e3; border:1px solid #f0dfae; border-radius:var(--radius); padding:14px 18px; font-size:14px; }
+.pill { background:transparent; color:var(--ink-2); border:1px solid var(--border); border-radius:20px; font-size:12px; font-weight:500; padding:6px 13px; }
+.pill[data-on] { background:var(--ink); color:#fff; border-color:var(--ink); }
+.we { background:#fdf6e3; border:1px solid #f0dfae; border-radius:var(--radius); padding:12px 16px; margin:0 0 4px; font-size:13px; }
+.we ul { margin:8px 0 0; padding-left:18px; }
+.we li { margin-bottom:4px; color:var(--ink-2); }
+.we .wefb { margin:8px 0 0; color:var(--ink-3); font-size:12px; }
+.dayrow.we { background:#fdfaf0; margin:0 -20px; padding:14px 20px; }
+.dayrow.we.now { background:var(--blue-bg); }
 footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--border); color:var(--ink-3); font-size:12px; }
 </style>
 </head>
@@ -81,7 +89,7 @@ footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--border); 
 <div class="wrap">
 
   <h1>Cheto · Fase 1 VLCKD</h1>
-  <p class="sub">Carmine · avvio lunedì 27 luglio 2026 · rivalutazione medica tra il 16 e il 23 agosto</p>
+  <p class="sub">Carmine · avvio lunedì 27 luglio 2026 · schema 5+2 dal 4 agosto · rivalutazione medica tra il 16 e il 23 agosto</p>
 
   <div class="card today" id="today"></div>
 
@@ -91,7 +99,7 @@ footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--border); 
   <div class="card">
     <div class="legend">
       <span><i class="dot" style="background:#2a78d6"></i>Reale rilevato</span>
-      <span><i class="dash"></i>Traiettoria prevista</span>
+      <span><i class="dash"></i>Traiettoria prevista con lo schema 5+2 (dal 4 agosto)</span>
     </div>
     <div class="chartbox"><canvas id="chart"></canvas></div>
   </div>
@@ -120,7 +128,16 @@ footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--border); 
   <div class="card"><div id="cal"></div></div>
 
   <div class="warnbox" style="margin-top:16px">
-    <b>Da validare col medico.</b> Il piano originale gira a 797-892 kcal al giorno. Lo spuntino delle 16:30 è stato aggiunto il 31 luglio dopo gli episodi di fame del 30 e 31, e porta le giornate a circa 900-990 kcal. Mangiare con struttura funziona meglio che restare più bassi e finire a 1.400 kcal con la cena saltata, ma la decisione spetta al medico.
+    <b>Da validare col medico.</b> Il piano originale gira a 797-892 kcal al giorno. Lo spuntino delle 16:30, aggiunto il 31 luglio dopo gli episodi di fame, ora <b>non si somma più</b>: la cena viene scalata di 49-77 kcal, così le giornate con spuntino restano a 841-924 kcal invece di 895-1.010. Dal 4 agosto vale inoltre lo <b>schema 5+2</b>, con sabato e domenica liberi sotto il tetto di 2.600 kcal. Entrambe le modifiche vanno riferite alla rivalutazione: una VLCKD dichiarata come 5+2 è un dato interpretabile, una seguita &laquo;più o meno&raquo; no.
+  </div>
+
+  <h2>Schema 5+2 — le regole del weekend</h2>
+  <div class="card">
+    <div class="rule"><div class="n">1</div><div class="txt"><b>Lunedì-venerdì: VLCKD integrale, 100%.</b> Nessuna eccezione, incluse le sere. Il venerdì sera e il lunedì appartengono ai cinque giorni: è lì che lo schema si è rotto la prima volta.</div></div>
+    <div class="rule"><div class="n">2</div><div class="txt"><b>Sabato-domenica: liberi, tetto 2.600 kcal.</b> Una sola uscita libera al giorno, non tre pasti liberi. Sopra il tetto non è più uno sgarro, è surplus, e il deficit settimanale collassa.</div></div>
+    <div class="rule"><div class="n">3</div><div class="txt"><b>Si decide il giovedì.</b> Dove si mangia e cosa. La regola si rompe quando si decide alle 21:00 affamati.</div></div>
+    <div class="rule"><div class="n">4</div><div class="txt"><b>Si pesa il venerdì.</b> Il lunedì è acqua e sodio, non dice nulla. Il criterio è il venerdì contro il venerdì precedente: serve almeno <b>−0,7 kg</b>. Sotto quella soglia lo schema non regge e va rinegoziato.</div></div>
+    <div class="rule"><div class="n">5</div><div class="txt"><b>Il lunedì è duro per progetto.</b> Rientro in chetosi: sodio doppio, magnesio la sera, proteina alle 17:00. Dura fino al mercoledì ed è fisiologia prevista, non un fallimento.</div></div>
   </div>
 
   <h2>Le quattro regole che contano</h2>
@@ -151,7 +168,7 @@ footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--border); 
   </div>
 
   <footer>
-    Menu e ricette dal Piano 14 giorni rev. 4 (28 luglio 2026). Spuntino delle 16:30 aggiunto il 31 luglio.
+    Menu e ricette dal Piano 14 giorni rev. 4 (28 luglio 2026). Spuntino delle 16:30 aggiunto il 31 luglio, reso facoltativo e compensato dalla cena scalata il 4 agosto, insieme allo schema 5+2.
     I check-in inseriti qui restano nel browser di questo dispositivo: usare Esporta e Importa per travasarli.
     Fabbisogno stimato (TDEE): 2.600 kcal · uomo, 37 anni, 183 cm, sedentario.
     Stime nutrizionali da tabelle standard, margine ±5%. Documento di coaching, non prescrizione medica.
@@ -162,6 +179,7 @@ footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--border); 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
 <script>
 // Ciclo di 14 giorni, estratto da Piano_14giorni_VLCKD.html (rev. 4, 28 lug 2026).
+// Rev. 5 (4 ago 2026): schema 5+2, spuntino con cena scalata.
 // Indice 0 = Lun settimana 1 = 27 luglio 2026. Il ciclo si ripete ogni 14 giorni.
 var COLAZIONE = {
   t: 'Yogurt greco intero 130 g + proteine in polvere 30 g + mandorle 6 g',
@@ -169,74 +187,105 @@ var COLAZIONE = {
   r: 'Un minuto: versa lo yogurt, sciogli dentro il misurino fino a crema, aggiungi le mandorle. Si prepara la sera prima. Caffè nero. In alternativa: 3 uova sode del batch domenicale.'
 };
 
+// cenaS = versione scalata della cena, da usare SOLO nei giorni in cui si fa lo
+// spuntino delle 16:30. sc = kcal risparmiate rispetto alla cena piena.
 var GIORNI = [
   { n: 'Lun · settimana 1', kcal: 864, p: 118, g: 34, c: 16,
     pranzo: { t: 'Tonno all\'olio EVO 120 g + insalata 100 g + pomodorini 100 g', l: 'lavoro', r: 'Nessuna cottura. Sgocciola bene il tonno, unisci insalata e pomodorini a pezzi. Sale, pepe e limone. Si assembla la sera prima.' },
-    cena:   { t: 'Petto di pollo 150 g + zucchine 200 g + olio EVO 3 g', r: 'Salta le zucchine in padella con l\'olio 8-10 min. A lato cuoci il pollo 3-4 min per lato con sale e spezie.' } },
+    cena:   { t: 'Petto di pollo 150 g + zucchine 200 g + olio EVO 3 g', r: 'Salta le zucchine in padella con l\'olio 8-10 min. A lato cuoci il pollo 3-4 min per lato con sale e spezie.' },
+    cenaS:  { t: 'Petto di pollo 105 g + zucchine 200 g + olio EVO 3 g', sc: 50 } },
 
   { n: 'Mar · settimana 1', kcal: 797, p: 105, g: 34, c: 13,
     pranzo: { t: 'Frittata al forno: uova 100 g + albumi 100 g + spinaci 100 g + olio EVO 3 g', l: 'lavoro', r: 'Sbatti 2 uova + 3 albumi con sale, unisci gli spinaci, versa in pirofila e cuoci a 180° per circa 20 min. Taglia a quadrotti: si riscalda al fornetto o si mangia fredda.' },
-    cena:   { t: 'Merluzzo o platessa 220 g + insalata 150 g + olio EVO 3 g', r: 'Cuoci il filetto in padella o al forno 8-10 min con un filo d\'olio, sale e limone. Servi con l\'insalata a lato.' } },
+    cena:   { t: 'Merluzzo o platessa 220 g + insalata 150 g + olio EVO 3 g', r: 'Cuoci il filetto in padella o al forno 8-10 min con un filo d\'olio, sale e limone. Servi con l\'insalata a lato.' },
+    cenaS:  { t: 'Merluzzo o platessa 155 g + insalata 150 g + olio EVO 3 g', sc: 53 } },
 
   { n: 'Mer · settimana 1', kcal: 839, p: 89, g: 40, c: 25,
     pranzo: { t: 'Fiocchi di latte 180 g + pomodorini 100 g', l: 'lavoro', r: 'Nessuna cottura. Fiocchi di latte in un contenitore con i pomodorini a pezzi, sale e pepe. Freddo, pronto da portare.' },
-    cena:   { t: 'Hamburger di vitello 150 g + insalata 150 g + pomodorini 100 g + olio EVO 2 g', r: 'Forma l\'hamburger e cuocilo in padella ben calda 3-4 min per lato, sale. Servi con insalata e pomodorini a crudo, olio a filo.' } },
+    cena:   { t: 'Hamburger di vitello 150 g + insalata 150 g + pomodorini 100 g + olio EVO 2 g', r: 'Forma l\'hamburger e cuocilo in padella ben calda 3-4 min per lato, sale. Servi con insalata e pomodorini a crudo, olio a filo.' },
+    cenaS:  { t: 'Hamburger di vitello 105 g + insalata 150 g + pomodorini 100 g + olio EVO 2 g', sc: 77 } },
 
   { n: 'Gio · settimana 1', kcal: 849, p: 118, g: 33, c: 15,
     pranzo: { t: 'Tonno all\'olio EVO 120 g + cetriolo 100 g + insalata 100 g', l: 'lavoro', r: 'Nessuna cottura. Sgocciola il tonno, affetta il cetriolo crudo con la buccia, unisci l\'insalata. Sale, pepe e limone.' },
-    cena:   { t: 'Petto di pollo 150 g + zucchine 200 g + olio EVO 2 g', r: 'Salta le zucchine in padella con l\'olio 8-10 min. A lato cuoci il pollo 3-4 min per lato con sale e spezie.' } },
+    cena:   { t: 'Petto di pollo 150 g + zucchine 200 g + olio EVO 2 g', r: 'Salta le zucchine in padella con l\'olio 8-10 min. A lato cuoci il pollo 3-4 min per lato con sale e spezie.' },
+    cenaS:  { t: 'Petto di pollo 105 g + zucchine 200 g + olio EVO 2 g', sc: 50 } },
 
   { n: 'Ven · settimana 1', kcal: 868, p: 107, g: 39, c: 13,
     pranzo: { t: 'Fesa di tacchino in busta 160 g + insalata 150 g + olio EVO 2 g', l: 'casa', r: 'Nessuna cottura. Taglia l\'affettato a striscioline sull\'insalata, olio a crudo e limone. Zero sale aggiunto: l\'affettato ne contiene già circa 2 g per 100 g. Se in etichetta le proteine sono sotto 20 g/100 g, porta la dose a 180 g.' },
-    cena:   { t: 'Salmone 110 g + spinaci 200 g + olio EVO 1 g', r: 'Salmone in padella antiaderente 3-4 min per lato, prima dal lato pelle, sale. Servi con spinaci saltati nell\'olio.' } },
+    cena:   { t: 'Salmone 110 g + spinaci 200 g + olio EVO 1 g', r: 'Salmone in padella antiaderente 3-4 min per lato, prima dal lato pelle, sale. Servi con spinaci saltati nell\'olio.' },
+    cenaS:  { t: 'Salmone 77 g + spinaci 200 g + olio EVO 1 g', sc: 66 } },
 
-  { n: 'Sab · settimana 1', kcal: 862, p: 108, g: 39, c: 16,
+  { n: 'Sab · settimana 1', kcal: 862, p: 108, g: 39, c: 16, we: true,
     pranzo: { t: 'Fesa di tacchino in busta 130 g + insalata 100 g + pomodorini 80 g + olio EVO 2 g', l: 'casa', r: 'Nessuna cottura. Striscioline su insalata e pomodorini, olio a crudo e limone. Zero sale aggiunto. Se le proteine in etichetta sono sotto 20 g/100 g, porta la dose a 150 g.' },
-    cena:   { t: 'Hamburger di vitello 150 g + zucchine 200 g + olio EVO 1 g', r: 'Forma l\'hamburger e cuocilo in padella ben calda 3-4 min per lato, sale. Servi con zucchine al vapore o saltate.' } },
+    cena:   { t: 'Hamburger di vitello 150 g + zucchine 200 g + olio EVO 1 g', r: 'Forma l\'hamburger e cuocilo in padella ben calda 3-4 min per lato, sale. Servi con zucchine al vapore o saltate.' },
+    cenaS:  { t: 'Hamburger di vitello 105 g + zucchine 200 g + olio EVO 1 g', sc: 77 } },
 
-  { n: 'Dom · settimana 1', kcal: 842, p: 105, g: 36, c: 19,
+  { n: 'Dom · settimana 1', kcal: 842, p: 105, g: 36, c: 19, we: true,
     nota: 'Batch della domenica: lessa un po\' di uova, cuoci la frittata al forno con spinaci e piastra 2-3 porzioni di pollo. Così i pranzi di lunedì-giovedì sono già pronti.',
     pranzo: { t: 'Petto di pollo 150 g + insalata 150 g + pomodorini 100 g + olio EVO 2 g', l: 'casa', r: 'Cuoci il pollo in padella o piastra 3-4 min per lato, sala. Taglialo a fette sull\'insalata con i pomodorini, olio a crudo.' },
-    cena:   { t: 'Sgombro al naturale 90 g + insalata 150 g + pomodorini 100 g + olio EVO 1 g', r: 'Nessuna cottura. Scola bene lo sgombro e sfaldalo sull\'insalata con i pomodorini. Olio, limone, pepe.' } },
+    cena:   { t: 'Sgombro al naturale 90 g + insalata 150 g + pomodorini 100 g + olio EVO 1 g', r: 'Nessuna cottura. Scola bene lo sgombro e sfaldalo sull\'insalata con i pomodorini. Olio, limone, pepe.' },
+    cenaS:  { t: 'Sgombro al naturale 63 g + insalata 150 g + pomodorini 100 g + olio EVO 1 g', sc: 49 } },
 
   { n: 'Lun · settimana 2', kcal: 846, p: 121, g: 31, c: 16,
     pranzo: { t: 'Tonno all\'olio EVO 120 g + insalata 100 g + pomodorini 100 g', l: 'lavoro', r: 'Nessuna cottura. Sgocciola bene il tonno, unisci insalata e pomodorini a pezzi. Sale, pepe e limone.' },
-    cena:   { t: 'Fesa di tacchino 170 g + zucchine 200 g + olio EVO 3 g', r: 'Salta le zucchine in padella 8-10 min. Serve fesa fresca da banco: 3-4 min per lato con sale e spezie. Se hai solo l\'affettato in busta non cuocerlo: mettilo a crudo sulle zucchine tiepide, senza sale.' } },
+    cena:   { t: 'Fesa di tacchino 170 g + zucchine 200 g + olio EVO 3 g', r: 'Salta le zucchine in padella 8-10 min. Serve fesa fresca da banco: 3-4 min per lato con sale e spezie. Se hai solo l\'affettato in busta non cuocerlo: mettilo a crudo sulle zucchine tiepide, senza sale.' },
+    cenaS:  { t: 'Fesa di tacchino 120 g + zucchine 200 g + olio EVO 3 g', sc: 53 } },
 
   { n: 'Mar · settimana 2', kcal: 797, p: 105, g: 34, c: 13,
     pranzo: { t: 'Frittata al forno: uova 100 g + albumi 100 g + spinaci 100 g + olio EVO 3 g', l: 'lavoro', r: 'Sbatti 2 uova + 3 albumi con sale, unisci gli spinaci, cuoci a 180° per circa 20 min. Taglia a quadrotti.' },
-    cena:   { t: 'Merluzzo o platessa 220 g + insalata 150 g + olio EVO 3 g', r: 'Cuoci il filetto in padella o al forno 8-10 min con un filo d\'olio, sale e limone.' } },
+    cena:   { t: 'Merluzzo o platessa 220 g + insalata 150 g + olio EVO 3 g', r: 'Cuoci il filetto in padella o al forno 8-10 min con un filo d\'olio, sale e limone.' },
+    cenaS:  { t: 'Merluzzo o platessa 155 g + insalata 150 g + olio EVO 3 g', sc: 53 } },
 
   { n: 'Mer · settimana 2', kcal: 820, p: 90, g: 40, c: 19,
     pranzo: { t: 'Fiocchi di latte 180 g + cetriolo 100 g', l: 'lavoro', r: 'Nessuna cottura. Fiocchi di latte con il cetriolo crudo a fette, sale e pepe. Freddo, pronto da portare.' },
-    cena:   { t: 'Hamburger di vitello 150 g + zucchine 200 g + olio EVO 1 g', r: 'Padella ben calda, 3-4 min per lato, sale. Servi con zucchine al vapore o saltate.' } },
+    cena:   { t: 'Hamburger di vitello 150 g + zucchine 200 g + olio EVO 1 g', r: 'Padella ben calda, 3-4 min per lato, sale. Servi con zucchine al vapore o saltate.' },
+    cenaS:  { t: 'Hamburger di vitello 105 g + zucchine 200 g + olio EVO 1 g', sc: 77 } },
 
   { n: 'Gio · settimana 2', kcal: 876, p: 121, g: 33, c: 17,
     pranzo: { t: 'Tonno all\'olio EVO 120 g + insalata 100 g + pomodorini 100 g', l: 'lavoro', r: 'Nessuna cottura. Sgocciola bene il tonno, unisci insalata e pomodorini. Sale, pepe e limone.' },
-    cena:   { t: 'Petto di pollo 150 g + spinaci 200 g + olio EVO 2 g', r: 'Salta gli spinaci in padella 5-6 min. A lato il pollo 3-4 min per lato. Variante: asparagi o fagiolini 200 g.' } },
+    cena:   { t: 'Petto di pollo 150 g + spinaci 200 g + olio EVO 2 g', r: 'Salta gli spinaci in padella 5-6 min. A lato il pollo 3-4 min per lato. Variante: asparagi o fagiolini 200 g.' },
+    cenaS:  { t: 'Petto di pollo 105 g + spinaci 200 g + olio EVO 2 g', sc: 50 } },
 
   { n: 'Ven · settimana 2', kcal: 892, p: 115, g: 40, c: 14,
     pranzo: { t: 'Tomino o primo sale 60 g + tonno all\'olio EVO 120 g + insalata 150 g', l: 'casa', r: 'Taglia il tomino a fette, unisci il tonno sgocciolato e l\'insalata; olio a crudo, sale e limone.' },
-    cena:   { t: 'Merluzzo o platessa 180 g + zucchine 200 g + olio EVO 2 g', r: 'Cuoci il filetto in padella o al forno 8-10 min con un filo d\'olio, sale e limone.' } },
+    cena:   { t: 'Merluzzo o platessa 180 g + zucchine 200 g + olio EVO 2 g', r: 'Cuoci il filetto in padella o al forno 8-10 min con un filo d\'olio, sale e limone.' },
+    cenaS:  { t: 'Merluzzo o platessa 110 g + zucchine 200 g, cotto con lo spruzzino (olio a crudo zero)', sc: 75 } },
 
-  { n: 'Sab · settimana 2', kcal: 862, p: 108, g: 39, c: 16,
+  { n: 'Sab · settimana 2', kcal: 862, p: 108, g: 39, c: 16, we: true,
     pranzo: { t: 'Fesa di tacchino in busta 130 g + insalata 100 g + pomodorini 80 g + olio EVO 2 g', l: 'casa', r: 'Nessuna cottura. Striscioline su insalata e pomodorini, olio a crudo e limone. Zero sale aggiunto.' },
-    cena:   { t: 'Hamburger di vitello 150 g + zucchine 200 g + olio EVO 1 g', r: 'Padella ben calda, 3-4 min per lato, sale. Servi con zucchine al vapore o saltate.' } },
+    cena:   { t: 'Hamburger di vitello 150 g + zucchine 200 g + olio EVO 1 g', r: 'Padella ben calda, 3-4 min per lato, sale. Servi con zucchine al vapore o saltate.' },
+    cenaS:  { t: 'Hamburger di vitello 105 g + zucchine 200 g + olio EVO 1 g', sc: 77 } },
 
-  { n: 'Dom · settimana 2', kcal: 842, p: 105, g: 36, c: 19,
+  { n: 'Dom · settimana 2', kcal: 842, p: 105, g: 36, c: 19, we: true,
     nota: 'Batch della domenica: uova sode, frittata al forno con spinaci, 2-3 porzioni di pollo alla piastra.',
     pranzo: { t: 'Petto di pollo 150 g + insalata 150 g + pomodorini 100 g + olio EVO 2 g', l: 'casa', r: 'Cuoci il pollo 3-4 min per lato, sala. A fette sull\'insalata con i pomodorini, olio a crudo.' },
-    cena:   { t: 'Sgombro al naturale 90 g + insalata 150 g + pomodorini 100 g + olio EVO 1 g', r: 'Nessuna cottura. Sfalda lo sgombro sull\'insalata con i pomodorini. Olio, limone, pepe.' } }
+    cena:   { t: 'Sgombro al naturale 90 g + insalata 150 g + pomodorini 100 g + olio EVO 1 g', r: 'Nessuna cottura. Sfalda lo sgombro sull\'insalata con i pomodorini. Olio, limone, pepe.' },
+    cenaS:  { t: 'Sgombro al naturale 63 g + insalata 150 g + pomodorini 100 g + olio EVO 1 g', sc: 49 } }
 ];
 
-// Spuntino delle 16:30 — aggiunta del 31 luglio, non presente nel piano originale.
-// Alterna uovo+albume e grana padano, evitando il grana nei giorni in cui
-// pranzo o cena contengono già un latticino (fiocchi di latte, tomino).
+// Spuntino delle 16:30 — introdotto il 31 luglio dopo l'episodio di fame serale.
+// È FACOLTATIVO: si fa solo se la fame nel pomeriggio supera 6/10.
+// Se lo fai, la cena va scalata (campo cenaS del giorno).
 var SPUNTINI = [
-  { t: 'Grana padano a cubetti 30 g', kc: '118 kcal · 10 g proteine' },
-  { t: '1 uovo sodo + 60 g di albume', kc: '98 kcal · 13 g proteine' }
+  { t: 'Grana padano a cubetti 30 g', kc: '118 kcal · 10 g proteine', k: 118 },
+  { t: '1 uovo sodo + 60 g di albume', kc: '98 kcal · 13 g proteine', k: 98 }
 ];
-var SPUNTINO_DI = [0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1];
+// Il grana cade nei giorni a base calorica più bassa e mai in quelli che hanno
+// già un latticino a pranzo o a cena (fiocchi di latte, tomino).
+var SPUNTINO_DI = [1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0];
+
+// Schema 5+2 concordato il 4 agosto 2026.
+var WEEKEND = {
+  tetto: 2600,
+  regole: [
+    'Tetto 2.600 kcal al giorno (= il tuo TDEE). Sopra quella soglia non è più uno sgarro, è surplus.',
+    'In pratica: una sola uscita libera al giorno, non tre pasti liberi. Colazione e pranzo restano keto.',
+    'Decidi il giovedì dove e cosa mangi. La regola si rompe quando si decide alle 21:00 affamati.',
+    'Alcol: massimo 2 unità a serata. Ogni birra media vale ~140 kcal e 11 g di carbo.',
+    'Lunedì si riparte comunque: sodio doppio, magnesio la sera, proteina alle 17:00.'
+  ],
+  fallback: 'Se resti a casa, il menu keto del giorno resta valido e ti fa guadagnare margine sul venerdì.'
+};
 
 (function () {
   var KEY = 'cheto_checkins_v1';
@@ -252,7 +301,9 @@ var SPUNTINO_DI = [0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1];
     { d: '2026-07-29', p: 115.7 },
     { d: '2026-07-30', p: 115.2 },
     { d: '2026-07-31', p: 115.5 },
-    { d: '2026-08-01', p: 116.1 }
+    { d: '2026-08-01', p: 116.1 },
+    { d: '2026-08-02', p: 116.6, f: null, n: 'Sera del 1/8 in spiaggia: 3 birre, pizza tonno e cipolla + un pezzo extra.' },
+    { d: '2026-08-04', p: 116.9, f: null, n: 'Weekend 1-2/8 fuori protocollo (pizza+birre sab, kebab+patatine dom). Lun 3/8 pulito. Da oggi schema 5+2.' }
   ];
 
   var $ = function (id) { return document.getElementById(id); };
@@ -261,7 +312,7 @@ var SPUNTINO_DI = [0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1];
   function save(r) { try { localStorage.setItem(KEY, JSON.stringify(r)); } catch (e) {} }
   function all() {
     var m = {};
-    seed.forEach(function (r) { m[r.d] = { d: r.d, p: r.p, f: null, n: '' }; });
+    seed.forEach(function (r) { m[r.d] = { d: r.d, p: r.p, f: r.f == null ? null : r.f, n: r.n || '' }; });
     load().forEach(function (r) { m[r.d] = r; });
     return Object.keys(m).sort().map(function (k) { return m[k]; });
   }
@@ -269,12 +320,31 @@ var SPUNTINO_DI = [0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1];
   function fmt(n) { return Number(n).toFixed(1).replace('.', ','); }
   function say(t) { $('msg').textContent = t; }
 
-  var labels = [], previsto = [], keys = [];
+  // ---------- curva prevista ----------
+  // La vecchia proiezione VLCKD 7/7 è stata ritirata: non è più il protocollo
+  // in corso e mostrarla creava un confronto senza senso. La traiettoria parte
+  // dal 4 ago 2026 (indice 8, 116,9 kg) e segue il modello 5+2: calo nei
+  // feriali, risalita fisiologica di acqua nel weekend. Netto atteso circa
+  // -0,85 kg a settimana, misurato SEMPRE venerdì contro venerdì.
+  var PIVOT = 8, PIVOT_KG = 116.9;
+  var DELTA = { 1: -0.30, 2: -0.28, 3: -0.28, 4: -0.27, 5: -0.27, 6: 0.30, 0: 0.25 };
+
+  var labels = [], previsto = [], keys = [], venerdi = [];
+  var corrente = PIVOT_KG;
   for (var t = 0; t < DAYS; t++) {
     var dt = new Date(START.getTime() + t * 86400000);
     labels.push(dt.getDate() + '/' + (dt.getMonth() + 1));
     keys.push(iso(dt));
-    previsto.push(Math.round((W0 - 0.23 * t - 2.6 * (1 - Math.exp(-t / 2.0))) * 100) / 100);
+    venerdi.push(dt.getDay() === 5);
+    if (t < PIVOT) {
+      previsto.push(null);
+    } else if (t === PIVOT) {
+      previsto.push(PIVOT_KG);
+    } else {
+      corrente += DELTA[dt.getDay()];
+      if (t === PIVOT + 1 || t === PIVOT + 2) { corrente -= 0.15; } // scarico glicogeno del rientro
+      previsto.push(Math.round(corrente * 100) / 100);
+    }
   }
 
   var oggi = new Date();
@@ -287,27 +357,60 @@ var SPUNTINO_DI = [0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1];
   function riga(h, testo, kc, ricetta, tag) {
     return '<div class="meal"><div class="h">' + h + '</div><div class="b">' +
       esc(testo) + (tag ? ' <span class="tag">' + tag + '</span>' : '') +
-      '<br><span class="kc">' + kc + '</span>' +
+      (kc ? '<br><span class="kc">' + kc + '</span>' : '') +
       (ricetta ? '<details><summary>Come si prepara</summary><p>' + esc(ricetta) + '</p></details>' : '') +
       '</div></div>';
   }
 
   // ---------- scheda di oggi ----------
-  if (inFase) {
-    var g = pianoDi(idx), sp = spuntinoDi(idx);
-    var tot = g.kcal + parseInt(sp.kc, 10);
-    $('today').innerHTML =
+  var gOggi = null, spOggi = null;
+
+  function schedaOggi(conSpuntino) {
+    var g = gOggi, sp = spOggi;
+    var totBase = g.kcal;
+    var totSpunt = g.kcal + sp.k - (g.cenaS ? g.cenaS.sc : 0);
+    var tot = conSpuntino ? totSpunt : totBase;
+    var cena = conSpuntino && g.cenaS ? g.cenaS.t : g.cena.t;
+
+    var toggle =
+      '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:14px 0 4px">' +
+        '<span style="font-size:13px;color:var(--ink-2)">Fame nel pomeriggio?</span>' +
+        '<button type="button" id="sp-no"' + (conSpuntino ? '' : ' data-on="1"') + ' class="pill">Sotto 6/10 · niente spuntino</button>' +
+        '<button type="button" id="sp-si"' + (conSpuntino ? ' data-on="1"' : '') + ' class="pill">Sopra 6/10 · spuntino + cena scalata</button>' +
+      '</div>';
+
+    var html =
       '<div class="hd">' +
         '<span class="day">' + GG[oggi.getDay()].charAt(0).toUpperCase() + GG[oggi.getDay()].slice(1) + ' ' + oggi.getDate() + ' ' + MM[oggi.getMonth()] + '</span>' +
         '<span class="badge">Giorno ' + (idx + 1) + ' di 28</span>' +
-        '<span class="meta">' + g.n + ' · previsto ' + fmt(previsto[idx]) + ' kg</span>' +
-      '</div>' +
+        '<span class="meta">' + g.n + (previsto[idx] == null ? '' : ' · previsto ' + fmt(previsto[idx]) + ' kg') + '</span>' +
+      '</div>';
+
+    if (g.we) {
+      html += '<div class="we"><b>Weekend · schema 5+2</b><ul>';
+      WEEKEND.regole.forEach(function (r) { html += '<li>' + esc(r) + '</li>'; });
+      html += '</ul><p class="wefb">' + esc(WEEKEND.fallback) + ' Il menu qui sotto è quello.</p></div>';
+    }
+
+    html += toggle +
       riga('Colazione', COLAZIONE.t, COLAZIONE.kc, COLAZIONE.r, '') +
       riga('Pranzo', g.pranzo.t, '', g.pranzo.r, g.pranzo.l === 'lavoro' ? 'da portare al lavoro' : 'a casa') +
-      riga('Ore 16:30', sp.t, sp.kc, '', '') +
-      riga('Cena', g.cena.t, '', g.cena.r, '') +
-      '<p class="tot">Totale giornata: <b>' + tot + ' kcal</b> · ' + g.p + ' g proteine · ' + g.g + ' g grassi · ' + g.c + ' g carbo netti <span style="color:var(--ink-3)">(piano ' + g.kcal + ' + spuntino)</span></p>' +
+      (conSpuntino ? riga('Ore 16:30', sp.t, sp.kc, '', 'facoltativo') : '') +
+      riga('Cena', cena, '', g.cena.r, conSpuntino ? 'scalata di ' + g.cenaS.sc + ' kcal' : '') +
+      '<p class="tot">Totale giornata: <b>' + tot + ' kcal</b> · ' + g.p + ' g proteine · ' + g.g + ' g grassi · ' + g.c + ' g carbo netti' +
+      '<span style="color:var(--ink-3)"> · deficit ' + (2600 - tot) + ' kcal sul TDEE</span></p>' +
+      (conSpuntino ? '' : '<p class="nota" style="border-color:#d3d1c7"><b>Senza spuntino:</b> se alle 17 la fame supera 6/10 non stringere i denti — premi il pulsante e usa la cena scalata. Con lo spuntino la giornata sta a ' + totSpunt + ' kcal invece di ' + totBase + ': ' + (totSpunt - totBase) + ' kcal in più valgono molto meno di uno sgarro serale da 1.700.</p>') +
       (g.nota ? '<p class="nota"><b>Nota:</b> ' + esc(g.nota) + '</p>' : '');
+
+    $('today').innerHTML = html;
+    $('sp-no').addEventListener('click', function () { schedaOggi(false); });
+    $('sp-si').addEventListener('click', function () { schedaOggi(true); });
+  }
+
+  if (inFase) {
+    gOggi = pianoDi(idx);
+    spOggi = spuntinoDi(idx);
+    schedaOggi(false);
   } else {
     $('today').innerHTML = '<div class="hd"><span class="day">' + GG[oggi.getDay()].charAt(0).toUpperCase() + GG[oggi.getDay()].slice(1) + ' ' + oggi.getDate() + ' ' + MM[oggi.getMonth()] + '</span><span class="badge">Fuori dalla Fase 1</span></div><p style="margin:0;font-size:14px;color:var(--ink-2)">La Fase 1 va dal 27 luglio al 23 agosto 2026.</p>';
   }
@@ -317,15 +420,19 @@ var SPUNTINO_DI = [0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1];
   for (var i = 0; i < DAYS; i++) {
     var dd = new Date(START.getTime() + i * 86400000);
     var gg = pianoDi(i), ss = spuntinoDi(i);
+    var pieno = gg.kcal, conSp = gg.kcal + ss.k - (gg.cenaS ? gg.cenaS.sc : 0);
     var stato = i === idx ? ' now' : (i < idx ? ' past' : '');
-    c += '<div class="dayrow' + stato + '">' +
+    c += '<div class="dayrow' + stato + (gg.we ? ' we' : '') + '">' +
          '<div class="dh"><b>Giorno ' + (i + 1) + '</b> · ' + GG[dd.getDay()] + ' ' + dd.getDate() + '/' + (dd.getMonth() + 1) +
          (i === idx ? ' <span class="badge">oggi</span>' : '') +
-         '<span class="dk">' + (gg.kcal + parseInt(ss.kc, 10)) + ' kcal · previsto ' + fmt(previsto[i]) + ' kg</span></div>' +
+         (gg.we ? ' <span class="badge">libero · tetto 2.600</span>' : '') +
+         (venerdi[i] ? ' <span class="badge">pesata di verifica</span>' : '') +
+         '<span class="dk">' + pieno + ' kcal · ' + conSp + ' con spuntino' + (previsto[i] == null ? '' : ' · previsto ' + fmt(previsto[i]) + ' kg') + '</span></div>' +
          '<div class="dl"><span>Colazione</span>' + esc(COLAZIONE.t) + '</div>' +
          '<div class="dl"><span>Pranzo</span>' + esc(gg.pranzo.t) + '</div>' +
-         '<div class="dl"><span>Ore 16:30</span>' + esc(ss.t) + '</div>' +
+         '<div class="dl"><span>Ore 16:30</span>' + esc(ss.t) + ' <i style="color:var(--ink-3);font-style:normal">— solo se fame &gt; 6/10</i></div>' +
          '<div class="dl"><span>Cena</span>' + esc(gg.cena.t) + '</div>' +
+         (gg.cenaS ? '<div class="dl"><span>Cena scalata</span>' + esc(gg.cenaS.t) + '</div>' : '') +
          '</div>';
   }
   $('cal').innerHTML = c;
@@ -342,11 +449,19 @@ var SPUNTINO_DI = [0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1];
     var last = pesi[pesi.length - 1];
     var min = Math.min.apply(null, pesi);
 
+    // ultimi due venerdì registrati: è la metrica ufficiale dello schema 5+2
+    var ven = rows.filter(function (r) {
+      var q = r.d.split('-');
+      return new Date(+q[0], +q[1] - 1, +q[2]).getDay() === 5;
+    });
+    var dVen = ven.length >= 2 ? (ven[ven.length - 1].p - ven[ven.length - 2].p) : null;
+
     $('kpis').innerHTML =
       kpi('Peso attuale', fmt(last) + ' kg', '') +
       kpi('Calo totale', '−' + fmt(W0 - last) + ' kg', 'color:#0f6e56') +
       kpi('Minimo toccato', fmt(min) + ' kg', '') +
-      kpi('Scarto sul previsto', inFase ? ((last > previsto[idx] ? '+' : '−') + fmt(Math.abs(last - previsto[idx])) + ' kg') : '—', '');
+      kpi('Venerdì su venerdì', dVen === null ? 'in attesa' : (dVen <= 0 ? '−' : '+') + fmt(Math.abs(dVen)) + ' kg',
+          dVen === null ? '' : (dVen <= -0.7 ? 'color:#0f6e56' : 'color:#a32d2d'));
 
     var h = '<table style="margin-top:18px"><thead><tr><th>Data</th><th class="num">Peso</th><th class="num">Fame</th><th>Note</th></tr></thead><tbody>';
     rows.slice().reverse().slice(0, 10).forEach(function (r) {
@@ -360,7 +475,7 @@ var SPUNTINO_DI = [0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1];
     chart = new Chart($('chart'), {
       type: 'line',
       data: { labels: labels, datasets: [
-        { label: 'Previsto', data: previsto, borderColor: '#eb6834', borderWidth: 2, borderDash: [6, 5], pointRadius: 0, pointHoverRadius: 4, fill: false, tension: 0.2 },
+        { label: 'Traiettoria 5+2', data: previsto, borderColor: '#eb6834', borderWidth: 2, borderDash: [6, 5], pointRadius: 0, pointHoverRadius: 4, fill: false, tension: 0.2, spanGaps: false },
         { label: 'Reale', data: reale, borderColor: '#2a78d6', backgroundColor: 'rgba(42,120,214,0.10)', borderWidth: 3, fill: true, tension: 0.25, pointRadius: 5, pointBackgroundColor: '#2a78d6', pointBorderColor: '#fff', pointBorderWidth: 2, spanGaps: true }
       ] },
       options: {
@@ -368,7 +483,7 @@ var SPUNTINO_DI = [0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1];
         interaction: { mode: 'index', intersect: false },
         plugins: { legend: { display: false }, tooltip: { callbacks: { label: function (x) { return x.parsed.y === null ? null : x.dataset.label + ': ' + fmt(x.parsed.y) + ' kg'; } } } },
         scales: {
-          y: { min: 108.5, max: 118.5, ticks: { color: '#898781', stepSize: 2, callback: function (v) { return v.toFixed(0) + ' kg'; } }, grid: { color: '#e5e3dd' } },
+          y: { min: 112, max: 118.5, ticks: { color: '#898781', stepSize: 1, callback: function (v) { return v.toFixed(0) + ' kg'; } }, grid: { color: '#e5e3dd' } },
           x: { ticks: { color: '#898781', maxRotation: 0, autoSkipPadding: 14, font: { size: 11 } }, grid: { display: false } }
         }
       }
@@ -389,7 +504,8 @@ var SPUNTINO_DI = [0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1];
     rows.sort(function (a, b) { return a.d < b.d ? -1 : 1; });
     save(rows);
     $('p').value = ''; $('f').value = ''; $('n').value = '';
-    say('Salvato.');
+    var q = d.split('-');
+    say(new Date(+q[0], +q[1] - 1, +q[2]).getDay() === 5 ? 'Salvato. Questo è un venerdì: è la pesata che conta.' : 'Salvato.');
     render();
   });
 

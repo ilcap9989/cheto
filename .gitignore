@@ -1,0 +1,12 @@
+# Sistema
+.DS_Store
+Thumbs.db
+._*
+
+# File temporanei di Office / editor
+~$*
+*.tmp
+*.swp
+
+# Backup
+*.bak
