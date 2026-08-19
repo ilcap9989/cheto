@@ -1,8 +1,15 @@
 (function () {
   var KEY = 'cheto_checkins_v1';
-  var START = new Date(2026, 6, 27);
-  var DAYS = 28;
-  var W0 = 118.0;
+
+  // Il PIANO parte il 17 agosto 2026 e dura 14 giorni (ciclo che si ripete).
+  var START = new Date(2026, 7, 17);
+  var DAYS = 14;
+
+  // Il GRAFICO parte invece dal 27 luglio, per non perdere lo storico.
+  var START_G = new Date(2026, 6, 27);
+  var DAYS_G = 36;                       // 27 lug -> 30 ago 2026
+  var W0 = 118.0;                        // peso di partenza assoluto
+
   var GG = ['domenica','lunedì','martedì','mercoledì','giovedì','venerdì','sabato'];
   var MM = ['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'];
 
@@ -14,7 +21,9 @@
     { d: '2026-07-31', p: 115.5 },
     { d: '2026-08-01', p: 116.1 },
     { d: '2026-08-02', p: 116.6, f: null, n: 'Sera del 1/8 in spiaggia: 3 birre, pizza tonno e cipolla + un pezzo extra.' },
-    { d: '2026-08-04', p: 116.9, f: null, n: 'Weekend 1-2/8 fuori protocollo (pizza+birre sab, kebab+patatine dom). Lun 3/8 pulito. Da oggi schema 5+2.' }
+    { d: '2026-08-04', p: 116.9, f: null, n: 'Weekend 1-2/8 fuori protocollo. Da oggi schema 5+2.' },
+    { d: '2026-08-07', p: 115.4, f: null, n: 'Checkpoint 1 dello schema 5+2: −0,1 kg venerdì su venerdì, contro un target di −0,7. Schema sotto osservazione.' },
+    { d: '2026-08-17', p: 117.9, f: null, n: 'Ripartenza dopo 10 giorni fuori protocollo (compagna ricoverata). Gran parte del +2,5 è glicogeno e acqua: il grasso reale in più è stimabile in 0,5-1 kg.' }
   ];
 
   var $ = function (id) { return document.getElementById(id); };
@@ -32,18 +41,18 @@
   function say(t) { $('msg').textContent = t; }
 
   // ---------- curva prevista ----------
-  // La vecchia proiezione VLCKD 7/7 è stata ritirata: non è più il protocollo
-  // in corso e mostrarla creava un confronto senza senso. La traiettoria parte
-  // dal 4 ago 2026 (indice 8, 116,9 kg) e segue il modello 5+2: calo nei
-  // feriali, risalita fisiologica di acqua nel weekend. Netto atteso circa
-  // -0,85 kg a settimana, misurato SEMPRE venerdì contro venerdì.
-  var PIVOT = 8, PIVOT_KG = 116.9;
-  var DELTA = { 1: -0.30, 2: -0.28, 3: -0.28, 4: -0.27, 5: -0.27, 6: 0.30, 0: 0.25 };
+  // Traiettoria del protocollo VLCKD 5 giorni + keto 2 giorni, dal 17 ago 2026
+  // (indice 21 sul grafico, 117,9 kg). I primi 3 giorni sono scarico di
+  // glicogeno e acqua, non grasso. Poi -0,15 kg nei feriali e -0,05 nel
+  // weekend: circa -0,85 kg a settimana, misurato SEMPRE venerdì su venerdì.
+  var PIVOT = 21, PIVOT_KG = 117.9;
+  var RIENTRO = [-0.60, -0.45, -0.35];
+  var DELTA = { 1: -0.15, 2: -0.15, 3: -0.15, 4: -0.15, 5: -0.15, 6: -0.05, 0: -0.05 };
 
   var labels = [], previsto = [], keys = [], venerdi = [];
   var corrente = PIVOT_KG;
-  for (var t = 0; t < DAYS; t++) {
-    var dt = new Date(START.getTime() + t * 86400000);
+  for (var t = 0; t < DAYS_G; t++) {
+    var dt = new Date(START_G.getTime() + t * 86400000);
     labels.push(dt.getDate() + '/' + (dt.getMonth() + 1));
     keys.push(iso(dt));
     venerdi.push(dt.getDay() === 5);
@@ -52,98 +61,95 @@
     } else if (t === PIVOT) {
       previsto.push(PIVOT_KG);
     } else {
-      corrente += DELTA[dt.getDay()];
-      if (t === PIVOT + 1 || t === PIVOT + 2) { corrente -= 0.15; } // scarico glicogeno del rientro
+      corrente += (t - PIVOT <= 3) ? RIENTRO[t - PIVOT - 1] : DELTA[dt.getDay()];
       previsto.push(Math.round(corrente * 100) / 100);
     }
   }
 
   var oggi = new Date();
-  var idx = Math.round((new Date(oggi.getFullYear(), oggi.getMonth(), oggi.getDate()) - START) / 86400000);
+  var oggiZero = new Date(oggi.getFullYear(), oggi.getMonth(), oggi.getDate());
+  var idx = Math.round((oggiZero - START) / 86400000);           // indice nel piano
+  var idxG = Math.round((oggiZero - START_G) / 86400000);        // indice sul grafico
   var inFase = idx >= 0 && idx < DAYS;
 
   function pianoDi(i) { return GIORNI[((i % 14) + 14) % 14]; }
-  function spuntinoDi(i) { return SPUNTINI[SPUNTINO_DI[((i % 14) + 14) % 14]]; }
+  function prevDi(i) { return (i >= 0 && i < DAYS_G) ? previsto[i] : null; }
 
-  function riga(h, testo, kc, ricetta, tag) {
-    return '<div class="meal"><div class="h">' + h + '</div><div class="b">' +
+  function riga(h, testo, kc, ricetta, tag, cls) {
+    return '<div class="meal' + (cls ? ' ' + cls : '') + '"><div class="h">' + h + '</div><div class="b">' +
       esc(testo) + (tag ? ' <span class="tag">' + tag + '</span>' : '') +
       (kc ? '<br><span class="kc">' + kc + '</span>' : '') +
       (ricetta ? '<details><summary>Come si prepara</summary><p>' + esc(ricetta) + '</p></details>' : '') +
       '</div></div>';
   }
 
+  function lista(arr) {
+    var s = '';
+    arr.forEach(function (r) { s += '<li>' + esc(r) + '</li>'; });
+    return s;
+  }
+
   // ---------- scheda di oggi ----------
-  var gOggi = null, spOggi = null;
-
-  function schedaOggi(conSpuntino) {
-    var g = gOggi, sp = spOggi;
-    var totBase = g.kcal;
-    var totSpunt = g.kcal + sp.k - (g.cenaS ? g.cenaS.sc : 0);
-    var tot = conSpuntino ? totSpunt : totBase;
-    var cena = conSpuntino && g.cenaS ? g.cenaS.t : g.cena.t;
-
-    var toggle =
-      '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:14px 0 4px">' +
-        '<span style="font-size:13px;color:var(--ink-2)">Fame nel pomeriggio?</span>' +
-        '<button type="button" id="sp-no"' + (conSpuntino ? '' : ' data-on="1"') + ' class="pill">Sotto 6/10 · niente spuntino</button>' +
-        '<button type="button" id="sp-si"' + (conSpuntino ? ' data-on="1"' : '') + ' class="pill">Sopra 6/10 · spuntino + cena scalata</button>' +
-      '</div>';
+  function schedaOggi() {
+    var g = pianoDi(idx);
+    var pv = prevDi(idxG);
+    var tdee = 2600;
 
     var html =
       '<div class="hd">' +
         '<span class="day">' + GG[oggi.getDay()].charAt(0).toUpperCase() + GG[oggi.getDay()].slice(1) + ' ' + oggi.getDate() + ' ' + MM[oggi.getMonth()] + '</span>' +
-        '<span class="badge">Giorno ' + (idx + 1) + ' di 28</span>' +
-        '<span class="meta">' + g.n + (previsto[idx] == null ? '' : ' · previsto ' + fmt(previsto[idx]) + ' kg') + '</span>' +
+        '<span class="badge">Giorno ' + (idx + 1) + ' di ' + DAYS + '</span>' +
+        '<span class="badge">' + g.tipo + '</span>' +
+        (venerdi[idxG] ? '<span class="badge">pesata di verifica</span>' : '') +
+        '<span class="meta">' + esc(g.n) + (pv == null ? '' : ' · previsto ' + fmt(pv) + ' kg') + '</span>' +
       '</div>';
 
+    html += '<p class="nota" style="border-color:#eb6834"><b>Da fare:</b> ' + esc(AVVISO) + '</p>';
+
     if (g.we) {
-      html += '<div class="we"><b>Weekend · schema 5+2</b><ul>';
-      WEEKEND.regole.forEach(function (r) { html += '<li>' + esc(r) + '</li>'; });
-      html += '</ul><p class="wefb">' + esc(WEEKEND.fallback) + ' Il menu qui sotto è quello.</p></div>';
+      html += '<div class="we"><b>Weekend keto · 1.600 kcal</b><ul>' + lista(WEEKEND.regole) +
+              '</ul><p class="wefb">' + esc(WEEKEND.fallback) + '</p></div>';
     }
 
-    html += toggle +
-      riga('Colazione', COLAZIONE.t, COLAZIONE.kc, COLAZIONE.r, '') +
-      riga('Pranzo', g.pranzo.t, '', g.pranzo.r, g.pranzo.l === 'lavoro' ? 'da portare al lavoro' : 'a casa') +
-      (conSpuntino ? riga('Ore 16:30', sp.t, sp.kc, '', 'facoltativo') : '') +
-      riga('Cena', cena, '', g.cena.r, conSpuntino ? 'scalata di ' + g.cenaS.sc + ' kcal' : '') +
-      '<p class="tot">Totale giornata: <b>' + tot + ' kcal</b> · ' + g.p + ' g proteine · ' + g.g + ' g grassi · ' + g.c + ' g carbo netti' +
-      '<span style="color:var(--ink-3)"> · deficit ' + (2600 - tot) + ' kcal sul TDEE</span></p>' +
-      (conSpuntino ? '' : '<p class="nota" style="border-color:#d3d1c7"><b>Senza spuntino:</b> se alle 17 la fame supera 6/10 non stringere i denti — premi il pulsante e usa la cena scalata. Con lo spuntino la giornata sta a ' + totSpunt + ' kcal invece di ' + totBase + ': ' + (totSpunt - totBase) + ' kcal in più valgono molto meno di uno sgarro serale da 1.700.</p>') +
-      (g.nota ? '<p class="nota"><b>Nota:</b> ' + esc(g.nota) + '</p>' : '');
+    html +=
+      riga('Colazione 07:30', g.colazione.t, g.colazione.kc, g.colazione.r, '') +
+      riga('Pranzo 13:00', g.pranzo.t, g.pranzo.kc, g.pranzo.r, g.pranzo.l === 'lavoro' ? 'da portare al lavoro' : 'a casa') +
+      riga('Ore 17:00', g.spuntino.t, g.spuntino.kc, g.spuntino.r, 'obbligatorio', 'sp') +
+      riga('Cena 20:00', g.cena.t, g.cena.kc, g.cena.r, 'piatto · tavolo · entro le 20:30') +
+      '<p class="tot">Totale giornata: <b>' + g.kcal + ' kcal</b> · ' + g.p + ' g proteine · ' + g.g + ' g grassi · ' + g.c + ' g carbo netti' +
+      '<span style="color:var(--ink-3)"> · deficit ' + (tdee - g.kcal) + ' kcal sul TDEE</span></p>' +
+      (g.nota ? '<p class="nota"><b>Nota:</b> ' + esc(g.nota) + '</p>' : '') +
+      '<details style="margin-top:12px"><summary><b>Le 6 regole di queste due settimane</b></summary><ul>' + lista(REGOLE) + '</ul></details>' +
+      '<details style="margin-top:6px"><summary><b>Scambi consentiti</b></summary><ul>' + lista(SCAMBI) + '</ul></details>';
 
     $('today').innerHTML = html;
-    $('sp-no').addEventListener('click', function () { schedaOggi(false); });
-    $('sp-si').addEventListener('click', function () { schedaOggi(true); });
   }
 
   if (inFase) {
-    gOggi = pianoDi(idx);
-    spOggi = spuntinoDi(idx);
-    schedaOggi(false);
+    schedaOggi();
   } else {
-    $('today').innerHTML = '<div class="hd"><span class="day">' + GG[oggi.getDay()].charAt(0).toUpperCase() + GG[oggi.getDay()].slice(1) + ' ' + oggi.getDate() + ' ' + MM[oggi.getMonth()] + '</span><span class="badge">Fuori dalla Fase 1</span></div><p style="margin:0;font-size:14px;color:var(--ink-2)">La Fase 1 va dal 27 luglio al 23 agosto 2026.</p>';
+    $('today').innerHTML = '<div class="hd"><span class="day">' + GG[oggi.getDay()].charAt(0).toUpperCase() + GG[oggi.getDay()].slice(1) + ' ' + oggi.getDate() + ' ' + MM[oggi.getMonth()] +
+      '</span><span class="badge">Fuori dal piano</span></div><p style="margin:0;font-size:14px;color:var(--ink-2)">Il piano corrente va dal 17 al 30 agosto 2026. Dopo il 30 serve una nuova revisione — e soprattutto la rivalutazione medica.</p>';
   }
 
   // ---------- calendario ----------
   var c = '';
   for (var i = 0; i < DAYS; i++) {
     var dd = new Date(START.getTime() + i * 86400000);
-    var gg = pianoDi(i), ss = spuntinoDi(i);
-    var pieno = gg.kcal, conSp = gg.kcal + ss.k - (gg.cenaS ? gg.cenaS.sc : 0);
+    var gg = pianoDi(i);
+    var iG = Math.round((dd - START_G) / 86400000);
+    var pv = prevDi(iG);
     var stato = i === idx ? ' now' : (i < idx ? ' past' : '');
     c += '<div class="dayrow' + stato + (gg.we ? ' we' : '') + '">' +
          '<div class="dh"><b>Giorno ' + (i + 1) + '</b> · ' + GG[dd.getDay()] + ' ' + dd.getDate() + '/' + (dd.getMonth() + 1) +
          (i === idx ? ' <span class="badge">oggi</span>' : '') +
-         (gg.we ? ' <span class="badge">libero · tetto 2.600</span>' : '') +
-         (venerdi[i] ? ' <span class="badge">pesata di verifica</span>' : '') +
-         '<span class="dk">' + pieno + ' kcal · ' + conSp + ' con spuntino' + (previsto[i] == null ? '' : ' · previsto ' + fmt(previsto[i]) + ' kg') + '</span></div>' +
-         '<div class="dl"><span>Colazione</span>' + esc(COLAZIONE.t) + '</div>' +
+         '<span class="badge">' + gg.tipo + '</span>' +
+         (dd.getDay() === 5 ? ' <span class="badge">pesata di verifica</span>' : '') +
+         '<span class="dk">' + gg.kcal + ' kcal · ' + gg.p + ' g prot · ' + gg.c + ' g carbo' + (pv == null ? '' : ' · previsto ' + fmt(pv) + ' kg') + '</span></div>' +
+         '<div class="dl"><span>Colazione</span>' + esc(gg.colazione.t) + '</div>' +
          '<div class="dl"><span>Pranzo</span>' + esc(gg.pranzo.t) + '</div>' +
-         '<div class="dl"><span>Ore 16:30</span>' + esc(ss.t) + ' <i style="color:var(--ink-3);font-style:normal">— solo se fame &gt; 6/10</i></div>' +
+         '<div class="dl"><span>Ore 17:00</span>' + esc(gg.spuntino.t) + ' <i style="color:var(--ink-3);font-style:normal">— obbligatorio</i></div>' +
          '<div class="dl"><span>Cena</span>' + esc(gg.cena.t) + '</div>' +
-         (gg.cenaS ? '<div class="dl"><span>Cena scalata</span>' + esc(gg.cenaS.t) + '</div>' : '') +
          '</div>';
   }
   $('cal').innerHTML = c;
@@ -160,7 +166,7 @@
     var last = pesi[pesi.length - 1];
     var min = Math.min.apply(null, pesi);
 
-    // ultimi due venerdì registrati: è la metrica ufficiale dello schema 5+2
+    // ultimi due venerdì registrati: è la metrica ufficiale del protocollo
     var ven = rows.filter(function (r) {
       var q = r.d.split('-');
       return new Date(+q[0], +q[1] - 1, +q[2]).getDay() === 5;
@@ -172,7 +178,7 @@
       kpi('Calo totale', '−' + fmt(W0 - last) + ' kg', 'color:#0f6e56') +
       kpi('Minimo toccato', fmt(min) + ' kg', '') +
       kpi('Venerdì su venerdì', dVen === null ? 'in attesa' : (dVen <= 0 ? '−' : '+') + fmt(Math.abs(dVen)) + ' kg',
-          dVen === null ? '' : (dVen <= -0.7 ? 'color:#0f6e56' : 'color:#a32d2d'));
+          dVen === null ? '' : (dVen <= -0.8 ? 'color:#0f6e56' : 'color:#a32d2d'));
 
     var h = '<table style="margin-top:18px"><thead><tr><th>Data</th><th class="num">Peso</th><th class="num">Fame</th><th>Note</th></tr></thead><tbody>';
     rows.slice().reverse().slice(0, 10).forEach(function (r) {
@@ -186,7 +192,7 @@
     chart = new Chart($('chart'), {
       type: 'line',
       data: { labels: labels, datasets: [
-        { label: 'Traiettoria 5+2', data: previsto, borderColor: '#eb6834', borderWidth: 2, borderDash: [6, 5], pointRadius: 0, pointHoverRadius: 4, fill: false, tension: 0.2, spanGaps: false },
+        { label: 'Traiettoria attesa', data: previsto, borderColor: '#eb6834', borderWidth: 2, borderDash: [6, 5], pointRadius: 0, pointHoverRadius: 4, fill: false, tension: 0.2, spanGaps: false },
         { label: 'Reale', data: reale, borderColor: '#2a78d6', backgroundColor: 'rgba(42,120,214,0.10)', borderWidth: 3, fill: true, tension: 0.25, pointRadius: 5, pointBackgroundColor: '#2a78d6', pointBorderColor: '#fff', pointBorderWidth: 2, spanGaps: true }
       ] },
       options: {
@@ -194,7 +200,7 @@
         interaction: { mode: 'index', intersect: false },
         plugins: { legend: { display: false }, tooltip: { callbacks: { label: function (x) { return x.parsed.y === null ? null : x.dataset.label + ': ' + fmt(x.parsed.y) + ' kg'; } } } },
         scales: {
-          y: { min: 112, max: 118.5, ticks: { color: '#898781', stepSize: 1, callback: function (v) { return v.toFixed(0) + ' kg'; } }, grid: { color: '#e5e3dd' } },
+          y: { min: 113, max: 119, ticks: { color: '#898781', stepSize: 1, callback: function (v) { return v.toFixed(0) + ' kg'; } }, grid: { color: '#e5e3dd' } },
           x: { ticks: { color: '#898781', maxRotation: 0, autoSkipPadding: 14, font: { size: 11 } }, grid: { display: false } }
         }
       }

@@ -10,3 +10,10 @@ Thumbs.db
 
 # Backup
 *.bak
+
+# Documenti personali del piano: NON servono al sito e il repository e pubblico.
+# Contengono dati sanitari e personali. Se un giorno li vuoi online, togli le righe.
+Piano_14giorni_17-30ago.html
+Lista_Spesa_17-30ago.xlsx
+Protocollo_Anti-Fame_17-21.md
+Checklist_Proteine.md

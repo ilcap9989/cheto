@@ -34,6 +34,9 @@ h2 { font-size:17px; font-weight:600; margin:32px 0 12px; }
 .meal .h { flex:0 0 92px; font-size:12px; color:var(--ink-3); font-weight:600; text-transform:uppercase; letter-spacing:0.4px; padding-top:2px; }
 .meal .b { flex:1; font-size:14px; min-width:0; }
 .meal .b .kc { color:var(--ink-3); font-size:13px; }
+.meal.sp { background:#eef7f4; margin:0 -12px; padding:11px 12px; border-radius:8px; border-bottom:1px solid #cfe6de; }
+.meal.sp .h { color:#0f6e56; }
+.meal.sp .tag { background:#0f6e56; color:#fff; }
 details { margin-top:6px; }
 summary { font-size:13px; color:var(--blue); cursor:pointer; }
 details p { margin:6px 0 0; font-size:13px; color:var(--ink-2); }
@@ -88,8 +91,8 @@ footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--border); 
 <body>
 <div class="wrap">
 
-  <h1>Cheto · Fase 1 VLCKD</h1>
-  <p class="sub">Carmine · avvio lunedì 27 luglio 2026 · schema 5+2 dal 4 agosto · rivalutazione medica tra il 16 e il 23 agosto</p>
+  <h1>Cheto · piano 17&ndash;30 agosto</h1>
+  <p class="sub">Carmine · VLCKD 5 giorni + keto standard 2 giorni · ripartenza da 117,9 kg · <b>rivalutazione medica da prenotare</b></p>
 
   <div class="card today" id="today"></div>
 
@@ -99,7 +102,7 @@ footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--border); 
   <div class="card">
     <div class="legend">
       <span><i class="dot" style="background:#2a78d6"></i>Reale rilevato</span>
-      <span><i class="dash"></i>Traiettoria prevista con lo schema 5+2 (dal 4 agosto)</span>
+      <span><i class="dash"></i>Traiettoria attesa del nuovo protocollo (dal 17 agosto)</span>
     </div>
     <div class="chartbox"><canvas id="chart"></canvas></div>
   </div>
@@ -123,29 +126,38 @@ footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--border); 
     <div id="hist"></div>
   </div>
 
-  <h2>Tutti i 28 giorni</h2>
-  <p class="sub" style="margin:-6px 0 12px">Il piano ruota su un ciclo di 14 giorni e si ripete. Fonte: Piano 14 giorni rev. 4.</p>
+  <h2>Tutti i 14 giorni</h2>
+  <p class="sub" style="margin:-6px 0 12px">Dal 17 al 30 agosto. La settimana 2 ripete la settimana 1. Macros calcolati su tabelle CREA/USDA, pesi crudi.</p>
   <div class="card"><div id="cal"></div></div>
 
   <div class="warnbox" style="margin-top:16px">
-    <b>Da validare col medico.</b> Il piano originale gira a 797-892 kcal al giorno. Lo spuntino delle 16:30, aggiunto il 31 luglio dopo gli episodi di fame, ora <b>non si somma più</b>: la cena viene scalata di 49-77 kcal, così le giornate con spuntino restano a 841-924 kcal invece di 895-1.010. Dal 4 agosto vale inoltre lo <b>schema 5+2</b>, con sabato e domenica liberi sotto il tetto di 2.600 kcal. Entrambe le modifiche vanno riferite alla rivalutazione: una VLCKD dichiarata come 5+2 è un dato interpretabile, una seguita &laquo;più o meno&raquo; no.
+    <b>Prima di tutto: prenota la visita.</b> La rivalutazione medica era prevista tra il 16 e il 23 agosto e la finestra è adesso. La VLCKD è partita il 27 luglio: siamo oltre le quattro settimane. Questo piano è un <b>ponte di due settimane</b>, non un sostituto del controllo. Da riferire al medico: la fame ricorrente sopra 7/10 tra le 17 e le 21, le tre cene saltate a inizio agosto, e la domanda diretta &laquo;850 kcal sono troppo poche per me?&raquo;.
   </div>
 
-  <h2>Schema 5+2 — le regole del weekend</h2>
+  <h2>Cosa è cambiato il 17 agosto</h2>
   <div class="card">
-    <div class="rule"><div class="n">1</div><div class="txt"><b>Lunedì-venerdì: VLCKD integrale, 100%.</b> Nessuna eccezione, incluse le sere. Il venerdì sera e il lunedì appartengono ai cinque giorni: è lì che lo schema si è rotto la prima volta.</div></div>
-    <div class="rule"><div class="n">2</div><div class="txt"><b>Sabato-domenica: liberi, tetto 2.600 kcal.</b> Una sola uscita libera al giorno, non tre pasti liberi. Sopra il tetto non è più uno sgarro, è surplus, e il deficit settimanale collassa.</div></div>
-    <div class="rule"><div class="n">3</div><div class="txt"><b>Si decide il giovedì.</b> Dove si mangia e cosa. La regola si rompe quando si decide alle 21:00 affamati.</div></div>
-    <div class="rule"><div class="n">4</div><div class="txt"><b>Si pesa il venerdì.</b> Il lunedì è acqua e sodio, non dice nulla. Il criterio è il venerdì contro il venerdì precedente: serve almeno <b>−0,7 kg</b>. Sotto quella soglia lo schema non regge e va rinegoziato.</div></div>
-    <div class="rule"><div class="n">5</div><div class="txt"><b>Il lunedì è duro per progetto.</b> Rientro in chetosi: sodio doppio, magnesio la sera, proteina alle 17:00. Dura fino al mercoledì ed è fisiologia prevista, non un fallimento.</div></div>
+    <div class="rule"><div class="n">1</div><div class="txt"><b>Il weekend non è più libero: è keto.</b> Sabato e domenica a 1.600 kcal con carbo netti sotto 30 g, chetosi mantenuta 7 giorni su 7. Lo schema 5+2 con tetto 2.600 è stato ritirato: al checkpoint del 7 agosto aveva prodotto <b>−0,1 kg</b> contro un target di −0,7. Rompere la chetosi ogni sabato significava affrontare il lunedì a 850 kcal senza l'effetto anoressizzante dei chetoni.</div></div>
+    <div class="rule"><div class="n">2</div><div class="txt"><b>Lo spuntino delle 17:00 è diventato un pasto.</b> Non più facoltativo, non più compensato dalla cena scalata: 120-180 kcal con almeno 13 g di proteine, pesato e porzionato in anticipo. È la contromisura diretta al pattern documentato — tre cene sparite in sei giorni (1, 5 e 6 agosto), tutte dopo un pomeriggio vuoto.</div></div>
+    <div class="rule"><div class="n">3</div><div class="txt"><b>Più proteine.</b> 118-123 g al giorno invece di ~110. La proteina è il macronutriente più saziante: a parità di calorie, spostare il piano verso le proteine è la leva più efficace sulla fame.</div></div>
+    <div class="rule"><div class="n">4</div><div class="txt"><b>Più sodio.</b> 3 g di sale in acqua calda alle 11 e alle 17, più 2 g nel brodo delle 19 nei giorni difficili. La fame serale è di tipo salato: è deplezione di sodio, non appetito. <i>Se hai pressione alta, fai autorizzare questo aumento dal medico.</i></div></div>
   </div>
 
-  <h2>Le quattro regole che contano</h2>
+  <h2>La finestra rossa: 17:00 → 21:00</h2>
   <div class="card">
-    <div class="rule"><div class="n">1</div><div class="txt"><b>Olio: cucchiaino, non cucchiaio.</b> Il piano prevede 1-3 g a pasto. Un cucchiaio pieno sono 10-12 g: usarne uno a pasto vale 135-190 kcal invisibili al giorno. Spruzzino per cuocere, cucchiaino dedicato per il crudo.</div></div>
-    <div class="rule"><div class="n">2</div><div class="txt"><b>Sale: 7-12 g al giorno di sale normale.</b> In chetosi i reni espellono sodio e la carenza si manifesta come fame di salato verso sera. Un pizzico non è una dose: serve mezzo cucchiaino raso. Il sale iposodico dà potassio, non sodio. Eccezione: sugli affettati in busta niente sale aggiunto, ne contengono già circa 2 g per 100 g.</div></div>
-    <div class="rule"><div class="n">3</div><div class="txt"><b>Verdura a volontà per il volume.</b> 150-200 g extra di foglia, cetriolo o finocchio costano 20-45 kcal e riempiono lo stomaco. La sazietà da distensione è un canale separato da quello calorico.</div></div>
-    <div class="rule"><div class="n">4</div><div class="txt"><b>Mai saltare un pasto per compensare.</b> Il taglio punitivo di oggi è l'attacco di fame di stasera. La struttura è il farmaco, non la restrizione.</div></div>
+    <div class="rule"><div class="n">1</div><div class="txt"><b>17:00 — spuntino, con la sveglia.</b> Già pesato. Se sei fuori, deve essere in borsa: uno spuntino che resta a casa è uno spuntino saltato. Con 300 ml di acqua calda e 3 g di sale.</div></div>
+    <div class="rule"><div class="n">2</div><div class="txt"><b>19:00 — la sequenza, in ordine.</b> Brodo caldo salato → aspetta 15 minuti col timer → finocchio o cetriolo crudo a volontà → se persiste, <b>anticipa la cena alle 19:30</b>. Anticipare è consentito; aggiungere cibo alla cena no.</div></div>
+    <div class="rule"><div class="n">3</div><div class="txt"><b>20:00-20:30 — piatto, tavolo, orario.</b> Impiattata, seduto, entro le 20:30. Le cene mangiate in piedi sono cene saltate. Segna ogni sera se è sopravvissuta: <b>obiettivo 12 su 14</b>.</div></div>
+    <div class="rule"><div class="n">4</div><div class="txt"><b>21:00 — la cucina chiude.</b> Magnesio, tisana, luce spenta. Se serve, lavati i denti: è un segnale forte.</div></div>
+    <div class="rule"><div class="n">5</div><div class="txt"><b>Il test dei 10 secondi.</b> &laquo;Mangerei un piatto di merluzzo lesso senza sale?&raquo; Sì → è fame fisica, applica la sequenza. No, voglio <i>quella</i> cosa → è fame emotiva: il cibo non la risolve, la rimanda. Dieci minuti fuori casa, una telefonata, una doccia. E scrivilo nel check-in.</div></div>
+  </div>
+
+  <h2>Ambiente: vale più della volontà</h2>
+  <div class="card">
+    <div class="rule"><div class="n">1</div><div class="txt"><b>Olio: cucchiaino raso da 5 g, non cucchiaio.</b> Un cucchiaio pieno sono 10-12 g: usarne uno a pasto vale 135-190 kcal invisibili al giorno, cioè 1.300 a settimana. Spruzzino per cuocere, cucchiaino dedicato legato alla bottiglia per il crudo.</div></div>
+    <div class="rule"><div class="n">2</div><div class="txt"><b>Mandorle porzionate in 14 bustine il giorno della spesa.</b> La busta grande in dispensa alle 19 vale 400 kcal. La bustina da 10 g ne vale 62.</div></div>
+    <div class="rule"><div class="n">3</div><div class="txt"><b>Niente pane, biscotti, marmellata, cereali in casa.</b> Il panino del 4 agosto è esistito perché c'erano pane, burro e marmellata. Se non ci sono, non succede.</div></div>
+    <div class="rule"><div class="n">4</div><div class="txt"><b>Verdura già tagliata in frigo, brodo granulare in vista.</b> L'alternativa giusta deve essere più veloce di quella sbagliata.</div></div>
+    <div class="rule"><div class="n">5</div><div class="txt"><b>Mai saltare un pasto per compensare.</b> Il taglio punitivo di oggi è l'attacco di fame di stasera. La struttura è il farmaco, non la restrizione.</div></div>
   </div>
 
   <h2>Semaforo alimenti</h2>
@@ -156,7 +168,7 @@ footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--border); 
     </div>
     <div class="card">
       <p style="margin:0 0 10px;font-size:13px;color:var(--ink-2)"><b>Fuori</b></p>
-      <span class="chip no">Noodles istantanei — 32 g carbo</span><span class="chip no">Mais tostato — 6,5 g su 10 g</span><span class="chip no">Piadina, pane</span><span class="chip no">Noccioline</span><span class="chip no">Wurstel</span><span class="chip no">Bulletproof coffee</span><span class="chip no">Liquid I.V. classica</span><span class="chip no">Legumi (solo Fase 2)</span>
+      <span class="chip no">Noodles istantanei — 32 g carbo</span><span class="chip no">Mais tostato — 6,5 g su 10 g</span><span class="chip no">Piadina, pane</span><span class="chip no">Noccioline</span><span class="chip no">Wurstel</span><span class="chip no">Bulletproof coffee</span><span class="chip no">Liquid I.V. classica</span><span class="chip no">Legumi (solo Fase 2)</span><span class="chip no">Birra, cocktail</span><span class="chip no">Chetoni esogeni (BHB)</span>
       <p style="margin:12px 0 0;font-size:13px;color:var(--ink-2)">Le bustine di condimento dei noodles, da sole, valgono 2-4 g di carbo e circa 2 g di sale: usabili sugli shirataki.</p>
     </div>
   </div>
@@ -164,134 +176,166 @@ footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--border); 
   <h2>Segnali di stop</h2>
   <div class="card">
     <p style="margin:0 0 8px;font-size:14px">Fermarsi e sentire il medico in caso di: <b>svenimenti, palpitazioni, capogiri forti, crampi importanti, nausea persistente</b>.</p>
-    <p style="margin:0;font-size:14px;color:var(--ink-2)">Inoltre: se la fame resta sopra 7/10 per più giorni consecutivi nonostante spuntino e volume, è un dato clinico da riferire — non una debolezza. Può indicare che il livello calorico è troppo basso.</p>
+    <p style="margin:0;font-size:14px;color:var(--ink-2)">Inoltre: se la fame resta sopra 8/10 per più di due giorni consecutivi nonostante spuntino, sodio e volume, è un dato clinico da riferire — non una debolezza. Può indicare che il livello calorico è troppo basso.</p>
   </div>
 
   <footer>
-    Menu e ricette dal Piano 14 giorni rev. 4 (28 luglio 2026). Spuntino delle 16:30 aggiunto il 31 luglio, reso facoltativo e compensato dalla cena scalata il 4 agosto, insieme allo schema 5+2.
+    Piano 14 giorni rev. 6 (17 agosto 2026): VLCKD 5 giorni + keto standard 2 giorni. Sostituisce lo schema 5+2 del 4 agosto.
+    Menu e macros generati da script sulle tabelle CREA/USDA, pesi crudi per carne e pesce.
+    Deficit teorico ~10.700 kcal a settimana (1,39 kg di grasso); <b>attesa realistica 0,8&ndash;1,1 kg a settimana</b>, il resto è acqua e adattamento metabolico.
+    Nota: la polvere proteica in uso contiene 1 g di creatina a dose, che trattiene 0,3-0,5 kg d'acqua nelle prime due settimane. Non è grasso: non farti ingannare dalla bilancia il 21 e il 28 agosto.
     I check-in inseriti qui restano nel browser di questo dispositivo: usare Esporta e Importa per travasarli.
     Fabbisogno stimato (TDEE): 2.600 kcal · uomo, 37 anni, 183 cm, sedentario.
-    Stime nutrizionali da tabelle standard, margine ±5%. Documento di coaching, non prescrizione medica.
+    Documento di coaching, non prescrizione medica.
   </footer>
 
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
 <script>
-// Ciclo di 14 giorni, estratto da Piano_14giorni_VLCKD.html (rev. 4, 28 lug 2026).
-// Rev. 5 (4 ago 2026): schema 5+2, spuntino con cena scalata.
-// Indice 0 = Lun settimana 1 = 27 luglio 2026. Il ciclo si ripete ogni 14 giorni.
-var COLAZIONE = {
-  t: 'Yogurt greco intero 130 g + proteine in polvere 30 g + mandorle 6 g',
-  kc: '310 kcal · 36 g proteine',
-  r: 'Un minuto: versa lo yogurt, sciogli dentro il misurino fino a crema, aggiungi le mandorle. Si prepara la sera prima. Caffè nero. In alternativa: 3 uova sode del batch domenicale.'
-};
+// Piano 17-30 agosto 2026 (rev. 6, generato il 17 ago 2026).
+// Protocollo: VLCKD ~850 kcal lun-ven + KETO standard ~1.600 kcal sab-dom.
+// Sostituisce lo schema 5+2 di agosto (weekend liberi a 2.600 kcal), ritirato
+// dopo il checkpoint del 7 ago (-0,1 kg contro un target di -0,7).
+// Indice 0 = lunedi 17 agosto 2026. Il ciclo si ripete ogni 14 giorni.
+// Novita strutturale: lo SPUNTINO DELLE 17:00 non e piu facoltativo, e un pasto
+// del piano. E la contromisura al pattern "cena che sparisce" (3 cene saltate
+// in 6 giorni a inizio agosto). Macros da tabelle CREA/USDA, pesi crudi.
 
-// cenaS = versione scalata della cena, da usare SOLO nei giorni in cui si fa lo
-// spuntino delle 16:30. sc = kcal risparmiate rispetto alla cena piena.
+var REGOLE = [
+  'Lo spuntino delle 17:00 non e opzionale. Se lo salti, alle 19 il piano si rompe: e successo il 30/7, l\'1/8, il 5/8 e il 6/8.',
+  'Sodio ogni giorno: 3 g di sale in 300 ml di acqua calda alle 11 e alle 17. Sale normale, non iposodico.',
+  'Olio: cucchiaino raso da 5 g + spruzzino per cuocere. Il cucchiaio "circa" vale 150-190 kcal al giorno non contate.',
+  'La cena si mangia seduti, nel piatto, entro le 20:30. Segna ogni sera se e sopravvissuta: obiettivo 12 su 14.',
+  'Sabato e domenica sono keto, non liberi: 1.600 kcal, carbo netti sotto 30 g.',
+  'Il peso che conta e quello del venerdi mattina. Il lunedi e acqua e sodio. Target -0,8 kg a settimana.'
+];
+
+var AVVISO = 'La rivalutazione medica era prevista tra il 16 e il 23 agosto e non e ancora prenotata. Questo piano e un ponte di due settimane, non un sostituto della visita.';
+
 var GIORNI = [
-  { n: 'Lun · settimana 1', kcal: 864, p: 118, g: 34, c: 16,
-    pranzo: { t: 'Tonno all\'olio EVO 120 g + insalata 100 g + pomodorini 100 g', l: 'lavoro', r: 'Nessuna cottura. Sgocciola bene il tonno, unisci insalata e pomodorini a pezzi. Sale, pepe e limone. Si assembla la sera prima.' },
-    cena:   { t: 'Petto di pollo 150 g + zucchine 200 g + olio EVO 3 g', r: 'Salta le zucchine in padella con l\'olio 8-10 min. A lato cuoci il pollo 3-4 min per lato con sale e spezie.' },
-    cenaS:  { t: 'Petto di pollo 105 g + zucchine 200 g + olio EVO 3 g', sc: 50 } },
+  { n: 'Lun 17/8 · settimana 1', tipo: 'VLCKD', kcal: 846, p: 123.3, g: 32.5, c: 17,
+    colazione: { t: 'Yogurt greco 0% 150 g + Whey isolate 90% 21 g', kc: '168 kcal · 35.2 g proteine', r: '21 g = 3 misurini rasi. + caffe nero. Alternativa: 3 uova sode (165 g).' },
+    pranzo:    { t: 'Tonno al naturale (sgocciolato) 120 g + Uova (guscio escluso) 55 g + Insalata mista 100 g + Pomodorini 80 g + Olio EVO 5 g', kc: '280 kcal · 39.5 g proteine', l: 'lavoro', r: 'Insalatona fredda, si prepara la sera prima. Uovo sodo.' },
+    spuntino:  { t: 'Bresaola 40 g + Mandorle 10 g', kc: '122 kcal · 15 g proteine', r: 'OBBLIGATORIO. Pesato. + 300 ml acqua calda con 3 g di sale.' },
+    cena:      { t: 'Macinato di vitello 150 g + Zucchine 200 g + Olio EVO 5 g', kc: '276 kcal · 33.6 g proteine', r: 'Hamburger in padella con spruzzino. Zucchine grigliate. Nel piatto, a tavola.' } },
 
-  { n: 'Mar · settimana 1', kcal: 797, p: 105, g: 34, c: 13,
-    pranzo: { t: 'Frittata al forno: uova 100 g + albumi 100 g + spinaci 100 g + olio EVO 3 g', l: 'lavoro', r: 'Sbatti 2 uova + 3 albumi con sale, unisci gli spinaci, versa in pirofila e cuoci a 180° per circa 20 min. Taglia a quadrotti: si riscalda al fornetto o si mangia fredda.' },
-    cena:   { t: 'Merluzzo o platessa 220 g + insalata 150 g + olio EVO 3 g', r: 'Cuoci il filetto in padella o al forno 8-10 min con un filo d\'olio, sale e limone. Servi con l\'insalata a lato.' },
-    cenaS:  { t: 'Merluzzo o platessa 155 g + insalata 150 g + olio EVO 3 g', sc: 53 } },
+  { n: 'Mar 18/8 · settimana 1', tipo: 'VLCKD', kcal: 843, p: 120.5, g: 33.2, c: 15.3,
+    colazione: { t: 'Yogurt greco 0% 150 g + Whey isolate 90% 21 g', kc: '168 kcal · 35.2 g proteine', r: '21 g = 3 misurini rasi. + caffe nero. Alternativa: 3 uova sode (165 g).' },
+    pranzo:    { t: 'Petto di pollo 150 g + Zucchine 150 g + Olio EVO 5 g', kc: '236 kcal · 36.9 g proteine', l: 'lavoro', r: 'Pollo cotto la sera prima, si mangia freddo o da fornetto.' },
+    spuntino:  { t: 'Grana Padano 30 g + Mandorle 10 g', kc: '179 kcal · 12.1 g proteine', r: 'OBBLIGATORIO. Il grana porta anche sodio: utile in chetosi.' },
+    cena:      { t: 'Merluzzo/platessa surgelata 200 g + Insalata mista 100 g + Pomodorini 80 g + Olio EVO 7 g', kc: '260 kcal · 36.3 g proteine', r: 'Filetto al forno o in padella, 12 min. Scongelare la mattina.' } },
 
-  { n: 'Mer · settimana 1', kcal: 839, p: 89, g: 40, c: 25,
-    pranzo: { t: 'Fiocchi di latte 180 g + pomodorini 100 g', l: 'lavoro', r: 'Nessuna cottura. Fiocchi di latte in un contenitore con i pomodorini a pezzi, sale e pepe. Freddo, pronto da portare.' },
-    cena:   { t: 'Hamburger di vitello 150 g + insalata 150 g + pomodorini 100 g + olio EVO 2 g', r: 'Forma l\'hamburger e cuocilo in padella ben calda 3-4 min per lato, sale. Servi con insalata e pomodorini a crudo, olio a filo.' },
-    cenaS:  { t: 'Hamburger di vitello 105 g + insalata 150 g + pomodorini 100 g + olio EVO 2 g', sc: 77 } },
+  { n: 'Mer 19/8 · settimana 1', tipo: 'VLCKD', kcal: 874, p: 123.7, g: 33.1, c: 16.7,
+    colazione: { t: 'Yogurt greco 0% 150 g + Whey isolate 90% 21 g', kc: '168 kcal · 35.2 g proteine', r: '21 g = 3 misurini rasi. + caffe nero. Alternativa: 3 uova sode (165 g).' },
+    pranzo:    { t: 'Mazzancolle/gamberi surgelati 180 g + Insalata mista 120 g + Cetrioli 100 g + Olio EVO 5 g', kc: '223 kcal · 34 g proteine', l: 'lavoro', r: 'Gamberi lessati 3 min, raffreddati. Ottimo piatto freddo da ufficio.' },
+    spuntino:  { t: 'Fesa di tacchino a fette 100 g', kc: '107 kcal · 21.3 g proteine', r: 'OBBLIGATORIO. + 300 ml acqua calda con 3 g di sale.' },
+    cena:      { t: 'Uova (guscio escluso) 165 g + Albume 60 g + Spinaci 200 g + Olio EVO 7 g', kc: '376 kcal · 33.2 g proteine', r: 'Frittata 3 uova + albume con spinaci saltati.' } },
 
-  { n: 'Gio · settimana 1', kcal: 849, p: 118, g: 33, c: 15,
-    pranzo: { t: 'Tonno all\'olio EVO 120 g + cetriolo 100 g + insalata 100 g', l: 'lavoro', r: 'Nessuna cottura. Sgocciola il tonno, affetta il cetriolo crudo con la buccia, unisci l\'insalata. Sale, pepe e limone.' },
-    cena:   { t: 'Petto di pollo 150 g + zucchine 200 g + olio EVO 2 g', r: 'Salta le zucchine in padella con l\'olio 8-10 min. A lato cuoci il pollo 3-4 min per lato con sale e spezie.' },
-    cenaS:  { t: 'Petto di pollo 105 g + zucchine 200 g + olio EVO 2 g', sc: 50 } },
+  { n: 'Gio 20/8 · settimana 1', tipo: 'VLCKD', kcal: 863, p: 122.3, g: 33.3, c: 15.6,
+    colazione: { t: 'Yogurt greco 0% 150 g + Whey isolate 90% 21 g', kc: '168 kcal · 35.2 g proteine', r: '21 g = 3 misurini rasi. + caffe nero. Alternativa: 3 uova sode (165 g).' },
+    pranzo:    { t: 'Fesa di tacchino a fette 120 g + Finocchi 150 g + Grana Padano 15 g + Olio EVO 5 g', kc: '255 kcal · 32.3 g proteine', l: 'lavoro', r: 'Zero cottura. Il piu veloce dei cinque.' },
+    spuntino:  { t: 'Whey isolate 90% 14 g + Mandorle 12 g', kc: '129 kcal · 15.8 g proteine', r: 'OBBLIGATORIO. 14 g = 2 misurini rasi, shaker con 250 ml acqua.' },
+    cena:      { t: 'Filetto di tonno surgelato 160 g + Melanzane 200 g + Olio EVO 5 g', kc: '311 kcal · 39 g proteine', r: 'Tonno scottato in padella 3 min per lato. Melanzane grigliate.' } },
 
-  { n: 'Ven · settimana 1', kcal: 868, p: 107, g: 39, c: 13,
-    pranzo: { t: 'Fesa di tacchino in busta 160 g + insalata 150 g + olio EVO 2 g', l: 'casa', r: 'Nessuna cottura. Taglia l\'affettato a striscioline sull\'insalata, olio a crudo e limone. Zero sale aggiunto: l\'affettato ne contiene già circa 2 g per 100 g. Se in etichetta le proteine sono sotto 20 g/100 g, porta la dose a 180 g.' },
-    cena:   { t: 'Salmone 110 g + spinaci 200 g + olio EVO 1 g', r: 'Salmone in padella antiaderente 3-4 min per lato, prima dal lato pelle, sale. Servi con spinaci saltati nell\'olio.' },
-    cenaS:  { t: 'Salmone 77 g + spinaci 200 g + olio EVO 1 g', sc: 66 } },
+  { n: 'Ven 21/8 · settimana 1', tipo: 'VLCKD', kcal: 880, p: 118.7, g: 37.5, c: 18.7,
+    colazione: { t: 'Yogurt greco 0% 150 g + Whey isolate 90% 21 g', kc: '168 kcal · 35.2 g proteine', r: '21 g = 3 misurini rasi. + caffe nero. Alternativa: 3 uova sode (165 g).' },
+    pranzo:    { t: 'Tonno al naturale (sgocciolato) 120 g + Uova (guscio escluso) 55 g + Insalata mista 100 g + Pomodorini 80 g + Olio EVO 5 g', kc: '280 kcal · 39.5 g proteine', l: 'casa', r: 'Come lunedi. Venerdi e il giorno critico: non saltare nulla.' },
+    spuntino:  { t: 'Grana Padano 20 g + Mandorle 10 g', kc: '140 kcal · 8.8 g proteine', r: 'OBBLIGATORIO. Venerdi alle 17 e il punto di rottura storico. + 300 ml acqua calda con 3 g di sale.' },
+    cena:      { t: 'Macinato di vitello 150 g + Insalata mista 150 g + Zucchine 150 g + Olio EVO 5 g', kc: '292 kcal · 35.2 g proteine', r: 'Venerdi sera appartiene ai 5 giorni. A tavola, nel piatto.' } },
 
-  { n: 'Sab · settimana 1', kcal: 862, p: 108, g: 39, c: 16, we: true,
-    pranzo: { t: 'Fesa di tacchino in busta 130 g + insalata 100 g + pomodorini 80 g + olio EVO 2 g', l: 'casa', r: 'Nessuna cottura. Striscioline su insalata e pomodorini, olio a crudo e limone. Zero sale aggiunto. Se le proteine in etichetta sono sotto 20 g/100 g, porta la dose a 150 g.' },
-    cena:   { t: 'Hamburger di vitello 150 g + zucchine 200 g + olio EVO 1 g', r: 'Forma l\'hamburger e cuocilo in padella ben calda 3-4 min per lato, sale. Servi con zucchine al vapore o saltate.' },
-    cenaS:  { t: 'Hamburger di vitello 105 g + zucchine 200 g + olio EVO 1 g', sc: 77 } },
+  { n: 'Sab 22/8 · settimana 1', tipo: 'KETO', kcal: 1614, p: 139.8, g: 108.5, c: 15.7, we: true,
+    colazione: { t: 'Uova (guscio escluso) 165 g + Grana Padano 20 g + Burro 8 g', kc: '372 kcal · 27.4 g proteine', r: 'Uova strapazzate. + caffe nero.' },
+    pranzo:    { t: 'Petto di pollo 180 g + Insalata mista 200 g + Avocado 80 g + Olio EVO 10 g', kc: '450 kcal · 46.5 g proteine', l: 'casa', r: 'Pollo grigliato su insalatona con avocado.' },
+    spuntino:  { t: 'Mandorle 20 g + Bresaola 40 g', kc: '183 kcal · 17.2 g proteine', r: 'Anche nel weekend lo spuntino delle 17 resta. Pesato.' },
+    cena:      { t: 'Salmone fresco 200 g + Melanzane 130 g + Zucchine 120 g + Feta 40 g + Olio EVO 10 g', kc: '609 kcal · 48.7 g proteine', r: 'Salmone al forno + verdure grigliate.' } },
 
-  { n: 'Dom · settimana 1', kcal: 842, p: 105, g: 36, c: 19, we: true,
-    nota: 'Batch della domenica: lessa un po\' di uova, cuoci la frittata al forno con spinaci e piastra 2-3 porzioni di pollo. Così i pranzi di lunedì-giovedì sono già pronti.',
-    pranzo: { t: 'Petto di pollo 150 g + insalata 150 g + pomodorini 100 g + olio EVO 2 g', l: 'casa', r: 'Cuoci il pollo in padella o piastra 3-4 min per lato, sala. Taglialo a fette sull\'insalata con i pomodorini, olio a crudo.' },
-    cena:   { t: 'Sgombro al naturale 90 g + insalata 150 g + pomodorini 100 g + olio EVO 1 g', r: 'Nessuna cottura. Scola bene lo sgombro e sfaldalo sull\'insalata con i pomodorini. Olio, limone, pepe.' },
-    cenaS:  { t: 'Sgombro al naturale 63 g + insalata 150 g + pomodorini 100 g + olio EVO 1 g', sc: 49 } },
+  { n: 'Dom 23/8 · settimana 1', tipo: 'KETO', kcal: 1615, p: 117.8, g: 115.8, c: 20.2, we: true,
+    colazione: { t: 'Yogurt greco intero 170 g + Noci 20 g', kc: '296 kcal · 18.3 g proteine', r: '+ caffe nero.' },
+    pranzo:    { t: 'Tagliata di manzo 220 g + Rucola 80 g + Grana Padano 20 g + Olio EVO 10 g', kc: '474 kcal · 54.9 g proteine', l: 'casa', r: 'Template ristorante: tagliata/grigliata + contorno di verdura. Vedi regole fuori casa.' },
+    spuntino:  { t: 'Mandorle 30 g + Olive verdi 40 g', kc: '242 kcal · 7 g proteine', r: 'Pesato prima di uscire.' },
+    cena:      { t: 'Uova (guscio escluso) 165 g + Albume 60 g + Insalata mista 150 g + Zucchine 100 g + Avocado 50 g + Feta 40 g + Olio EVO 12 g', kc: '603 kcal · 37.6 g proteine', r: 'Cena leggera di rientro.' } },
 
-  { n: 'Lun · settimana 2', kcal: 846, p: 121, g: 31, c: 16,
-    pranzo: { t: 'Tonno all\'olio EVO 120 g + insalata 100 g + pomodorini 100 g', l: 'lavoro', r: 'Nessuna cottura. Sgocciola bene il tonno, unisci insalata e pomodorini a pezzi. Sale, pepe e limone.' },
-    cena:   { t: 'Fesa di tacchino 170 g + zucchine 200 g + olio EVO 3 g', r: 'Salta le zucchine in padella 8-10 min. Serve fesa fresca da banco: 3-4 min per lato con sale e spezie. Se hai solo l\'affettato in busta non cuocerlo: mettilo a crudo sulle zucchine tiepide, senza sale.' },
-    cenaS:  { t: 'Fesa di tacchino 120 g + zucchine 200 g + olio EVO 3 g', sc: 53 } },
+  { n: 'Lun 24/8 · settimana 2', tipo: 'VLCKD', kcal: 846, p: 123.3, g: 32.5, c: 17,
+    colazione: { t: 'Yogurt greco 0% 150 g + Whey isolate 90% 21 g', kc: '168 kcal · 35.2 g proteine', r: '21 g = 3 misurini rasi. + caffe nero. Alternativa: 3 uova sode (165 g).' },
+    pranzo:    { t: 'Tonno al naturale (sgocciolato) 120 g + Uova (guscio escluso) 55 g + Insalata mista 100 g + Pomodorini 80 g + Olio EVO 5 g', kc: '280 kcal · 39.5 g proteine', l: 'lavoro', r: 'Insalatona fredda, si prepara la sera prima. Uovo sodo.' },
+    spuntino:  { t: 'Bresaola 40 g + Mandorle 10 g', kc: '122 kcal · 15 g proteine', r: 'OBBLIGATORIO. Pesato. + 300 ml acqua calda con 3 g di sale.' },
+    cena:      { t: 'Macinato di vitello 150 g + Zucchine 200 g + Olio EVO 5 g', kc: '276 kcal · 33.6 g proteine', r: 'Hamburger in padella con spruzzino. Zucchine grigliate. Nel piatto, a tavola.' } },
 
-  { n: 'Mar · settimana 2', kcal: 797, p: 105, g: 34, c: 13,
-    pranzo: { t: 'Frittata al forno: uova 100 g + albumi 100 g + spinaci 100 g + olio EVO 3 g', l: 'lavoro', r: 'Sbatti 2 uova + 3 albumi con sale, unisci gli spinaci, cuoci a 180° per circa 20 min. Taglia a quadrotti.' },
-    cena:   { t: 'Merluzzo o platessa 220 g + insalata 150 g + olio EVO 3 g', r: 'Cuoci il filetto in padella o al forno 8-10 min con un filo d\'olio, sale e limone.' },
-    cenaS:  { t: 'Merluzzo o platessa 155 g + insalata 150 g + olio EVO 3 g', sc: 53 } },
+  { n: 'Mar 25/8 · settimana 2', tipo: 'VLCKD', kcal: 843, p: 120.5, g: 33.2, c: 15.3,
+    colazione: { t: 'Yogurt greco 0% 150 g + Whey isolate 90% 21 g', kc: '168 kcal · 35.2 g proteine', r: '21 g = 3 misurini rasi. + caffe nero. Alternativa: 3 uova sode (165 g).' },
+    pranzo:    { t: 'Petto di pollo 150 g + Zucchine 150 g + Olio EVO 5 g', kc: '236 kcal · 36.9 g proteine', l: 'lavoro', r: 'Pollo cotto la sera prima, si mangia freddo o da fornetto.' },
+    spuntino:  { t: 'Grana Padano 30 g + Mandorle 10 g', kc: '179 kcal · 12.1 g proteine', r: 'OBBLIGATORIO. Il grana porta anche sodio: utile in chetosi.' },
+    cena:      { t: 'Merluzzo/platessa surgelata 200 g + Insalata mista 100 g + Pomodorini 80 g + Olio EVO 7 g', kc: '260 kcal · 36.3 g proteine', r: 'Filetto al forno o in padella, 12 min. Scongelare la mattina.' } },
 
-  { n: 'Mer · settimana 2', kcal: 820, p: 90, g: 40, c: 19,
-    pranzo: { t: 'Fiocchi di latte 180 g + cetriolo 100 g', l: 'lavoro', r: 'Nessuna cottura. Fiocchi di latte con il cetriolo crudo a fette, sale e pepe. Freddo, pronto da portare.' },
-    cena:   { t: 'Hamburger di vitello 150 g + zucchine 200 g + olio EVO 1 g', r: 'Padella ben calda, 3-4 min per lato, sale. Servi con zucchine al vapore o saltate.' },
-    cenaS:  { t: 'Hamburger di vitello 105 g + zucchine 200 g + olio EVO 1 g', sc: 77 } },
+  { n: 'Mer 26/8 · settimana 2', tipo: 'VLCKD', kcal: 874, p: 123.7, g: 33.1, c: 16.7,
+    colazione: { t: 'Yogurt greco 0% 150 g + Whey isolate 90% 21 g', kc: '168 kcal · 35.2 g proteine', r: '21 g = 3 misurini rasi. + caffe nero. Alternativa: 3 uova sode (165 g).' },
+    pranzo:    { t: 'Mazzancolle/gamberi surgelati 180 g + Insalata mista 120 g + Cetrioli 100 g + Olio EVO 5 g', kc: '223 kcal · 34 g proteine', l: 'lavoro', r: 'Gamberi lessati 3 min, raffreddati. Ottimo piatto freddo da ufficio.' },
+    spuntino:  { t: 'Fesa di tacchino a fette 100 g', kc: '107 kcal · 21.3 g proteine', r: 'OBBLIGATORIO. + 300 ml acqua calda con 3 g di sale.' },
+    cena:      { t: 'Uova (guscio escluso) 165 g + Albume 60 g + Spinaci 200 g + Olio EVO 7 g', kc: '376 kcal · 33.2 g proteine', r: 'Frittata 3 uova + albume con spinaci saltati.' } },
 
-  { n: 'Gio · settimana 2', kcal: 876, p: 121, g: 33, c: 17,
-    pranzo: { t: 'Tonno all\'olio EVO 120 g + insalata 100 g + pomodorini 100 g', l: 'lavoro', r: 'Nessuna cottura. Sgocciola bene il tonno, unisci insalata e pomodorini. Sale, pepe e limone.' },
-    cena:   { t: 'Petto di pollo 150 g + spinaci 200 g + olio EVO 2 g', r: 'Salta gli spinaci in padella 5-6 min. A lato il pollo 3-4 min per lato. Variante: asparagi o fagiolini 200 g.' },
-    cenaS:  { t: 'Petto di pollo 105 g + spinaci 200 g + olio EVO 2 g', sc: 50 } },
+  { n: 'Gio 27/8 · settimana 2', tipo: 'VLCKD', kcal: 863, p: 122.3, g: 33.3, c: 15.6,
+    colazione: { t: 'Yogurt greco 0% 150 g + Whey isolate 90% 21 g', kc: '168 kcal · 35.2 g proteine', r: '21 g = 3 misurini rasi. + caffe nero. Alternativa: 3 uova sode (165 g).' },
+    pranzo:    { t: 'Fesa di tacchino a fette 120 g + Finocchi 150 g + Grana Padano 15 g + Olio EVO 5 g', kc: '255 kcal · 32.3 g proteine', l: 'lavoro', r: 'Zero cottura. Il piu veloce dei cinque.' },
+    spuntino:  { t: 'Whey isolate 90% 14 g + Mandorle 12 g', kc: '129 kcal · 15.8 g proteine', r: 'OBBLIGATORIO. 14 g = 2 misurini rasi, shaker con 250 ml acqua.' },
+    cena:      { t: 'Filetto di tonno surgelato 160 g + Melanzane 200 g + Olio EVO 5 g', kc: '311 kcal · 39 g proteine', r: 'Tonno scottato in padella 3 min per lato. Melanzane grigliate.' } },
 
-  { n: 'Ven · settimana 2', kcal: 892, p: 115, g: 40, c: 14,
-    pranzo: { t: 'Tomino o primo sale 60 g + tonno all\'olio EVO 120 g + insalata 150 g', l: 'casa', r: 'Taglia il tomino a fette, unisci il tonno sgocciolato e l\'insalata; olio a crudo, sale e limone.' },
-    cena:   { t: 'Merluzzo o platessa 180 g + zucchine 200 g + olio EVO 2 g', r: 'Cuoci il filetto in padella o al forno 8-10 min con un filo d\'olio, sale e limone.' },
-    cenaS:  { t: 'Merluzzo o platessa 110 g + zucchine 200 g, cotto con lo spruzzino (olio a crudo zero)', sc: 75 } },
+  { n: 'Ven 28/8 · settimana 2', tipo: 'VLCKD', kcal: 880, p: 118.7, g: 37.5, c: 18.7,
+    colazione: { t: 'Yogurt greco 0% 150 g + Whey isolate 90% 21 g', kc: '168 kcal · 35.2 g proteine', r: '21 g = 3 misurini rasi. + caffe nero. Alternativa: 3 uova sode (165 g).' },
+    pranzo:    { t: 'Tonno al naturale (sgocciolato) 120 g + Uova (guscio escluso) 55 g + Insalata mista 100 g + Pomodorini 80 g + Olio EVO 5 g', kc: '280 kcal · 39.5 g proteine', l: 'casa', r: 'Come lunedi. Venerdi e il giorno critico: non saltare nulla.' },
+    spuntino:  { t: 'Grana Padano 20 g + Mandorle 10 g', kc: '140 kcal · 8.8 g proteine', r: 'OBBLIGATORIO. Venerdi alle 17 e il punto di rottura storico. + 300 ml acqua calda con 3 g di sale.' },
+    cena:      { t: 'Macinato di vitello 150 g + Insalata mista 150 g + Zucchine 150 g + Olio EVO 5 g', kc: '292 kcal · 35.2 g proteine', r: 'Venerdi sera appartiene ai 5 giorni. A tavola, nel piatto.' } },
 
-  { n: 'Sab · settimana 2', kcal: 862, p: 108, g: 39, c: 16, we: true,
-    pranzo: { t: 'Fesa di tacchino in busta 130 g + insalata 100 g + pomodorini 80 g + olio EVO 2 g', l: 'casa', r: 'Nessuna cottura. Striscioline su insalata e pomodorini, olio a crudo e limone. Zero sale aggiunto.' },
-    cena:   { t: 'Hamburger di vitello 150 g + zucchine 200 g + olio EVO 1 g', r: 'Padella ben calda, 3-4 min per lato, sale. Servi con zucchine al vapore o saltate.' },
-    cenaS:  { t: 'Hamburger di vitello 105 g + zucchine 200 g + olio EVO 1 g', sc: 77 } },
+  { n: 'Sab 29/8 · settimana 2', tipo: 'KETO', kcal: 1614, p: 139.8, g: 108.5, c: 15.7, we: true,
+    colazione: { t: 'Uova (guscio escluso) 165 g + Grana Padano 20 g + Burro 8 g', kc: '372 kcal · 27.4 g proteine', r: 'Uova strapazzate. + caffe nero.' },
+    pranzo:    { t: 'Petto di pollo 180 g + Insalata mista 200 g + Avocado 80 g + Olio EVO 10 g', kc: '450 kcal · 46.5 g proteine', l: 'casa', r: 'Pollo grigliato su insalatona con avocado.' },
+    spuntino:  { t: 'Mandorle 20 g + Bresaola 40 g', kc: '183 kcal · 17.2 g proteine', r: 'Anche nel weekend lo spuntino delle 17 resta. Pesato.' },
+    cena:      { t: 'Salmone fresco 200 g + Melanzane 130 g + Zucchine 120 g + Feta 40 g + Olio EVO 10 g', kc: '609 kcal · 48.7 g proteine', r: 'Salmone al forno + verdure grigliate.' } },
 
-  { n: 'Dom · settimana 2', kcal: 842, p: 105, g: 36, c: 19, we: true,
-    nota: 'Batch della domenica: uova sode, frittata al forno con spinaci, 2-3 porzioni di pollo alla piastra.',
-    pranzo: { t: 'Petto di pollo 150 g + insalata 150 g + pomodorini 100 g + olio EVO 2 g', l: 'casa', r: 'Cuoci il pollo 3-4 min per lato, sala. A fette sull\'insalata con i pomodorini, olio a crudo.' },
-    cena:   { t: 'Sgombro al naturale 90 g + insalata 150 g + pomodorini 100 g + olio EVO 1 g', r: 'Nessuna cottura. Sfalda lo sgombro sull\'insalata con i pomodorini. Olio, limone, pepe.' },
-    cenaS:  { t: 'Sgombro al naturale 63 g + insalata 150 g + pomodorini 100 g + olio EVO 1 g', sc: 49 } }
+  { n: 'Dom 30/8 · settimana 2', tipo: 'KETO', kcal: 1615, p: 117.8, g: 115.8, c: 20.2, we: true,
+    colazione: { t: 'Yogurt greco intero 170 g + Noci 20 g', kc: '296 kcal · 18.3 g proteine', r: '+ caffe nero.' },
+    pranzo:    { t: 'Tagliata di manzo 220 g + Rucola 80 g + Grana Padano 20 g + Olio EVO 10 g', kc: '474 kcal · 54.9 g proteine', l: 'casa', r: 'Template ristorante: tagliata/grigliata + contorno di verdura. Vedi regole fuori casa.' },
+    spuntino:  { t: 'Mandorle 30 g + Olive verdi 40 g', kc: '242 kcal · 7 g proteine', r: 'Pesato prima di uscire.' },
+    cena:      { t: 'Uova (guscio escluso) 165 g + Albume 60 g + Insalata mista 150 g + Zucchine 100 g + Avocado 50 g + Feta 40 g + Olio EVO 12 g', kc: '603 kcal · 37.6 g proteine', r: 'Cena leggera di rientro.' } }
+
 ];
 
-// Spuntino delle 16:30 — introdotto il 31 luglio dopo l'episodio di fame serale.
-// È FACOLTATIVO: si fa solo se la fame nel pomeriggio supera 6/10.
-// Se lo fai, la cena va scalata (campo cenaS del giorno).
-var SPUNTINI = [
-  { t: 'Grana padano a cubetti 30 g', kc: '118 kcal · 10 g proteine', k: 118 },
-  { t: '1 uovo sodo + 60 g di albume', kc: '98 kcal · 13 g proteine', k: 98 }
-];
-// Il grana cade nei giorni a base calorica più bassa e mai in quelli che hanno
-// già un latticino a pranzo o a cena (fiocchi di latte, tomino).
-var SPUNTINO_DI = [1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0];
-
-// Schema 5+2 concordato il 4 agosto 2026.
+// Regole del weekend keto. Sostituiscono il vecchio "tetto 2.600 kcal".
 var WEEKEND = {
-  tetto: 2600,
+  tetto: 1600,
   regole: [
-    'Tetto 2.600 kcal al giorno (= il tuo TDEE). Sopra quella soglia non è più uno sgarro, è surplus.',
-    'In pratica: una sola uscita libera al giorno, non tre pasti liberi. Colazione e pranzo restano keto.',
-    'Decidi il giovedì dove e cosa mangi. La regola si rompe quando si decide alle 21:00 affamati.',
-    'Alcol: massimo 2 unità a serata. Ogni birra media vale ~140 kcal e 11 g di carbo.',
-    'Lunedì si riparte comunque: sodio doppio, magnesio la sera, proteina alle 17:00.'
+    'Il weekend non e piu libero: e keto. 1.600 kcal, carbo netti sotto 30 g, chetosi mantenuta 7 giorni su 7.',
+    'Puoi cenare fuori. SI a grigliate di carne o pesce, tagliata, crudo di mare, verdure grigliate, formaggi, uova, frutti di mare.',
+    'NO a pane e grissini in tavola (falli togliere), patate, pasta, riso, pizza, birra, cocktail, dolci, fritti in pastella.',
+    'Da bere acqua frizzante. Al massimo un calice di vino secco (~120 kcal): rallenta la chetosi e riapre l\'appetito.',
+    'Lo spuntino delle 17:00 vale anche sabato e domenica. Non arrivare al ristorante affamato.'
   ],
-  fallback: 'Se resti a casa, il menu keto del giorno resta valido e ti fa guadagnare margine sul venerdì.'
+  fallback: 'Se resti a casa, il menu keto del giorno e gia bilanciato a 1.600 kcal.'
 };
+
+// Scambi consentiti, mostrati nella scheda del giorno.
+var SCAMBI = [
+  'Colazione: 150 g yogurt greco 0% + 21 g di polvere proteica <-> 3 uova sode (165 g).',
+  'Merluzzo <-> platessa <-> nasello, stesso peso.',
+  'Mazzancolle <-> gamberi argentini <-> polpo lesso, stesso peso.',
+  'Bresaola <-> fesa di tacchino (peso x1,3) <-> prosciutto crudo sgrassato (peso x0,7).',
+  'Zucchine <-> melanzane <-> peperoni <-> spinaci. Insalata: quantita libera.',
+  'Finocchi e cetrioli crudi: liberi, quando vuoi, non si contano.',
+  'Vietato scambiare un pasto con "niente". Saltare non e uno scambio.'
+];
 
 (function () {
   var KEY = 'cheto_checkins_v1';
-  var START = new Date(2026, 6, 27);
-  var DAYS = 28;
-  var W0 = 118.0;
+
+  // Il PIANO parte il 17 agosto 2026 e dura 14 giorni (ciclo che si ripete).
+  var START = new Date(2026, 7, 17);
+  var DAYS = 14;
+
+  // Il GRAFICO parte invece dal 27 luglio, per non perdere lo storico.
+  var START_G = new Date(2026, 6, 27);
+  var DAYS_G = 36;                       // 27 lug -> 30 ago 2026
+  var W0 = 118.0;                        // peso di partenza assoluto
+
   var GG = ['domenica','lunedì','martedì','mercoledì','giovedì','venerdì','sabato'];
   var MM = ['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'];
 
@@ -303,7 +347,9 @@ var WEEKEND = {
     { d: '2026-07-31', p: 115.5 },
     { d: '2026-08-01', p: 116.1 },
     { d: '2026-08-02', p: 116.6, f: null, n: 'Sera del 1/8 in spiaggia: 3 birre, pizza tonno e cipolla + un pezzo extra.' },
-    { d: '2026-08-04', p: 116.9, f: null, n: 'Weekend 1-2/8 fuori protocollo (pizza+birre sab, kebab+patatine dom). Lun 3/8 pulito. Da oggi schema 5+2.' }
+    { d: '2026-08-04', p: 116.9, f: null, n: 'Weekend 1-2/8 fuori protocollo. Da oggi schema 5+2.' },
+    { d: '2026-08-07', p: 115.4, f: null, n: 'Checkpoint 1 dello schema 5+2: −0,1 kg venerdì su venerdì, contro un target di −0,7. Schema sotto osservazione.' },
+    { d: '2026-08-17', p: 117.9, f: null, n: 'Ripartenza dopo 10 giorni fuori protocollo (compagna ricoverata). Gran parte del +2,5 è glicogeno e acqua: il grasso reale in più è stimabile in 0,5-1 kg.' }
   ];
 
   var $ = function (id) { return document.getElementById(id); };
@@ -321,18 +367,18 @@ var WEEKEND = {
   function say(t) { $('msg').textContent = t; }
 
   // ---------- curva prevista ----------
-  // La vecchia proiezione VLCKD 7/7 è stata ritirata: non è più il protocollo
-  // in corso e mostrarla creava un confronto senza senso. La traiettoria parte
-  // dal 4 ago 2026 (indice 8, 116,9 kg) e segue il modello 5+2: calo nei
-  // feriali, risalita fisiologica di acqua nel weekend. Netto atteso circa
-  // -0,85 kg a settimana, misurato SEMPRE venerdì contro venerdì.
-  var PIVOT = 8, PIVOT_KG = 116.9;
-  var DELTA = { 1: -0.30, 2: -0.28, 3: -0.28, 4: -0.27, 5: -0.27, 6: 0.30, 0: 0.25 };
+  // Traiettoria del protocollo VLCKD 5 giorni + keto 2 giorni, dal 17 ago 2026
+  // (indice 21 sul grafico, 117,9 kg). I primi 3 giorni sono scarico di
+  // glicogeno e acqua, non grasso. Poi -0,15 kg nei feriali e -0,05 nel
+  // weekend: circa -0,85 kg a settimana, misurato SEMPRE venerdì su venerdì.
+  var PIVOT = 21, PIVOT_KG = 117.9;
+  var RIENTRO = [-0.60, -0.45, -0.35];
+  var DELTA = { 1: -0.15, 2: -0.15, 3: -0.15, 4: -0.15, 5: -0.15, 6: -0.05, 0: -0.05 };
 
   var labels = [], previsto = [], keys = [], venerdi = [];
   var corrente = PIVOT_KG;
-  for (var t = 0; t < DAYS; t++) {
-    var dt = new Date(START.getTime() + t * 86400000);
+  for (var t = 0; t < DAYS_G; t++) {
+    var dt = new Date(START_G.getTime() + t * 86400000);
     labels.push(dt.getDate() + '/' + (dt.getMonth() + 1));
     keys.push(iso(dt));
     venerdi.push(dt.getDay() === 5);
@@ -341,98 +387,95 @@ var WEEKEND = {
     } else if (t === PIVOT) {
       previsto.push(PIVOT_KG);
     } else {
-      corrente += DELTA[dt.getDay()];
-      if (t === PIVOT + 1 || t === PIVOT + 2) { corrente -= 0.15; } // scarico glicogeno del rientro
+      corrente += (t - PIVOT <= 3) ? RIENTRO[t - PIVOT - 1] : DELTA[dt.getDay()];
       previsto.push(Math.round(corrente * 100) / 100);
     }
   }
 
   var oggi = new Date();
-  var idx = Math.round((new Date(oggi.getFullYear(), oggi.getMonth(), oggi.getDate()) - START) / 86400000);
+  var oggiZero = new Date(oggi.getFullYear(), oggi.getMonth(), oggi.getDate());
+  var idx = Math.round((oggiZero - START) / 86400000);           // indice nel piano
+  var idxG = Math.round((oggiZero - START_G) / 86400000);        // indice sul grafico
   var inFase = idx >= 0 && idx < DAYS;
 
   function pianoDi(i) { return GIORNI[((i % 14) + 14) % 14]; }
-  function spuntinoDi(i) { return SPUNTINI[SPUNTINO_DI[((i % 14) + 14) % 14]]; }
+  function prevDi(i) { return (i >= 0 && i < DAYS_G) ? previsto[i] : null; }
 
-  function riga(h, testo, kc, ricetta, tag) {
-    return '<div class="meal"><div class="h">' + h + '</div><div class="b">' +
+  function riga(h, testo, kc, ricetta, tag, cls) {
+    return '<div class="meal' + (cls ? ' ' + cls : '') + '"><div class="h">' + h + '</div><div class="b">' +
       esc(testo) + (tag ? ' <span class="tag">' + tag + '</span>' : '') +
       (kc ? '<br><span class="kc">' + kc + '</span>' : '') +
       (ricetta ? '<details><summary>Come si prepara</summary><p>' + esc(ricetta) + '</p></details>' : '') +
       '</div></div>';
   }
 
+  function lista(arr) {
+    var s = '';
+    arr.forEach(function (r) { s += '<li>' + esc(r) + '</li>'; });
+    return s;
+  }
+
   // ---------- scheda di oggi ----------
-  var gOggi = null, spOggi = null;
-
-  function schedaOggi(conSpuntino) {
-    var g = gOggi, sp = spOggi;
-    var totBase = g.kcal;
-    var totSpunt = g.kcal + sp.k - (g.cenaS ? g.cenaS.sc : 0);
-    var tot = conSpuntino ? totSpunt : totBase;
-    var cena = conSpuntino && g.cenaS ? g.cenaS.t : g.cena.t;
-
-    var toggle =
-      '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:14px 0 4px">' +
-        '<span style="font-size:13px;color:var(--ink-2)">Fame nel pomeriggio?</span>' +
-        '<button type="button" id="sp-no"' + (conSpuntino ? '' : ' data-on="1"') + ' class="pill">Sotto 6/10 · niente spuntino</button>' +
-        '<button type="button" id="sp-si"' + (conSpuntino ? ' data-on="1"' : '') + ' class="pill">Sopra 6/10 · spuntino + cena scalata</button>' +
-      '</div>';
+  function schedaOggi() {
+    var g = pianoDi(idx);
+    var pv = prevDi(idxG);
+    var tdee = 2600;
 
     var html =
       '<div class="hd">' +
         '<span class="day">' + GG[oggi.getDay()].charAt(0).toUpperCase() + GG[oggi.getDay()].slice(1) + ' ' + oggi.getDate() + ' ' + MM[oggi.getMonth()] + '</span>' +
-        '<span class="badge">Giorno ' + (idx + 1) + ' di 28</span>' +
-        '<span class="meta">' + g.n + (previsto[idx] == null ? '' : ' · previsto ' + fmt(previsto[idx]) + ' kg') + '</span>' +
+        '<span class="badge">Giorno ' + (idx + 1) + ' di ' + DAYS + '</span>' +
+        '<span class="badge">' + g.tipo + '</span>' +
+        (venerdi[idxG] ? '<span class="badge">pesata di verifica</span>' : '') +
+        '<span class="meta">' + esc(g.n) + (pv == null ? '' : ' · previsto ' + fmt(pv) + ' kg') + '</span>' +
       '</div>';
 
+    html += '<p class="nota" style="border-color:#eb6834"><b>Da fare:</b> ' + esc(AVVISO) + '</p>';
+
     if (g.we) {
-      html += '<div class="we"><b>Weekend · schema 5+2</b><ul>';
-      WEEKEND.regole.forEach(function (r) { html += '<li>' + esc(r) + '</li>'; });
-      html += '</ul><p class="wefb">' + esc(WEEKEND.fallback) + ' Il menu qui sotto è quello.</p></div>';
+      html += '<div class="we"><b>Weekend keto · 1.600 kcal</b><ul>' + lista(WEEKEND.regole) +
+              '</ul><p class="wefb">' + esc(WEEKEND.fallback) + '</p></div>';
     }
 
-    html += toggle +
-      riga('Colazione', COLAZIONE.t, COLAZIONE.kc, COLAZIONE.r, '') +
-      riga('Pranzo', g.pranzo.t, '', g.pranzo.r, g.pranzo.l === 'lavoro' ? 'da portare al lavoro' : 'a casa') +
-      (conSpuntino ? riga('Ore 16:30', sp.t, sp.kc, '', 'facoltativo') : '') +
-      riga('Cena', cena, '', g.cena.r, conSpuntino ? 'scalata di ' + g.cenaS.sc + ' kcal' : '') +
-      '<p class="tot">Totale giornata: <b>' + tot + ' kcal</b> · ' + g.p + ' g proteine · ' + g.g + ' g grassi · ' + g.c + ' g carbo netti' +
-      '<span style="color:var(--ink-3)"> · deficit ' + (2600 - tot) + ' kcal sul TDEE</span></p>' +
-      (conSpuntino ? '' : '<p class="nota" style="border-color:#d3d1c7"><b>Senza spuntino:</b> se alle 17 la fame supera 6/10 non stringere i denti — premi il pulsante e usa la cena scalata. Con lo spuntino la giornata sta a ' + totSpunt + ' kcal invece di ' + totBase + ': ' + (totSpunt - totBase) + ' kcal in più valgono molto meno di uno sgarro serale da 1.700.</p>') +
-      (g.nota ? '<p class="nota"><b>Nota:</b> ' + esc(g.nota) + '</p>' : '');
+    html +=
+      riga('Colazione 07:30', g.colazione.t, g.colazione.kc, g.colazione.r, '') +
+      riga('Pranzo 13:00', g.pranzo.t, g.pranzo.kc, g.pranzo.r, g.pranzo.l === 'lavoro' ? 'da portare al lavoro' : 'a casa') +
+      riga('Ore 17:00', g.spuntino.t, g.spuntino.kc, g.spuntino.r, 'obbligatorio', 'sp') +
+      riga('Cena 20:00', g.cena.t, g.cena.kc, g.cena.r, 'piatto · tavolo · entro le 20:30') +
+      '<p class="tot">Totale giornata: <b>' + g.kcal + ' kcal</b> · ' + g.p + ' g proteine · ' + g.g + ' g grassi · ' + g.c + ' g carbo netti' +
+      '<span style="color:var(--ink-3)"> · deficit ' + (tdee - g.kcal) + ' kcal sul TDEE</span></p>' +
+      (g.nota ? '<p class="nota"><b>Nota:</b> ' + esc(g.nota) + '</p>' : '') +
+      '<details style="margin-top:12px"><summary><b>Le 6 regole di queste due settimane</b></summary><ul>' + lista(REGOLE) + '</ul></details>' +
+      '<details style="margin-top:6px"><summary><b>Scambi consentiti</b></summary><ul>' + lista(SCAMBI) + '</ul></details>';
 
     $('today').innerHTML = html;
-    $('sp-no').addEventListener('click', function () { schedaOggi(false); });
-    $('sp-si').addEventListener('click', function () { schedaOggi(true); });
   }
 
   if (inFase) {
-    gOggi = pianoDi(idx);
-    spOggi = spuntinoDi(idx);
-    schedaOggi(false);
+    schedaOggi();
   } else {
-    $('today').innerHTML = '<div class="hd"><span class="day">' + GG[oggi.getDay()].charAt(0).toUpperCase() + GG[oggi.getDay()].slice(1) + ' ' + oggi.getDate() + ' ' + MM[oggi.getMonth()] + '</span><span class="badge">Fuori dalla Fase 1</span></div><p style="margin:0;font-size:14px;color:var(--ink-2)">La Fase 1 va dal 27 luglio al 23 agosto 2026.</p>';
+    $('today').innerHTML = '<div class="hd"><span class="day">' + GG[oggi.getDay()].charAt(0).toUpperCase() + GG[oggi.getDay()].slice(1) + ' ' + oggi.getDate() + ' ' + MM[oggi.getMonth()] +
+      '</span><span class="badge">Fuori dal piano</span></div><p style="margin:0;font-size:14px;color:var(--ink-2)">Il piano corrente va dal 17 al 30 agosto 2026. Dopo il 30 serve una nuova revisione — e soprattutto la rivalutazione medica.</p>';
   }
 
   // ---------- calendario ----------
   var c = '';
   for (var i = 0; i < DAYS; i++) {
     var dd = new Date(START.getTime() + i * 86400000);
-    var gg = pianoDi(i), ss = spuntinoDi(i);
-    var pieno = gg.kcal, conSp = gg.kcal + ss.k - (gg.cenaS ? gg.cenaS.sc : 0);
+    var gg = pianoDi(i);
+    var iG = Math.round((dd - START_G) / 86400000);
+    var pv = prevDi(iG);
     var stato = i === idx ? ' now' : (i < idx ? ' past' : '');
     c += '<div class="dayrow' + stato + (gg.we ? ' we' : '') + '">' +
          '<div class="dh"><b>Giorno ' + (i + 1) + '</b> · ' + GG[dd.getDay()] + ' ' + dd.getDate() + '/' + (dd.getMonth() + 1) +
          (i === idx ? ' <span class="badge">oggi</span>' : '') +
-         (gg.we ? ' <span class="badge">libero · tetto 2.600</span>' : '') +
-         (venerdi[i] ? ' <span class="badge">pesata di verifica</span>' : '') +
-         '<span class="dk">' + pieno + ' kcal · ' + conSp + ' con spuntino' + (previsto[i] == null ? '' : ' · previsto ' + fmt(previsto[i]) + ' kg') + '</span></div>' +
-         '<div class="dl"><span>Colazione</span>' + esc(COLAZIONE.t) + '</div>' +
+         '<span class="badge">' + gg.tipo + '</span>' +
+         (dd.getDay() === 5 ? ' <span class="badge">pesata di verifica</span>' : '') +
+         '<span class="dk">' + gg.kcal + ' kcal · ' + gg.p + ' g prot · ' + gg.c + ' g carbo' + (pv == null ? '' : ' · previsto ' + fmt(pv) + ' kg') + '</span></div>' +
+         '<div class="dl"><span>Colazione</span>' + esc(gg.colazione.t) + '</div>' +
          '<div class="dl"><span>Pranzo</span>' + esc(gg.pranzo.t) + '</div>' +
-         '<div class="dl"><span>Ore 16:30</span>' + esc(ss.t) + ' <i style="color:var(--ink-3);font-style:normal">— solo se fame &gt; 6/10</i></div>' +
+         '<div class="dl"><span>Ore 17:00</span>' + esc(gg.spuntino.t) + ' <i style="color:var(--ink-3);font-style:normal">— obbligatorio</i></div>' +
          '<div class="dl"><span>Cena</span>' + esc(gg.cena.t) + '</div>' +
-         (gg.cenaS ? '<div class="dl"><span>Cena scalata</span>' + esc(gg.cenaS.t) + '</div>' : '') +
          '</div>';
   }
   $('cal').innerHTML = c;
@@ -449,7 +492,7 @@ var WEEKEND = {
     var last = pesi[pesi.length - 1];
     var min = Math.min.apply(null, pesi);
 
-    // ultimi due venerdì registrati: è la metrica ufficiale dello schema 5+2
+    // ultimi due venerdì registrati: è la metrica ufficiale del protocollo
     var ven = rows.filter(function (r) {
       var q = r.d.split('-');
       return new Date(+q[0], +q[1] - 1, +q[2]).getDay() === 5;
@@ -461,7 +504,7 @@ var WEEKEND = {
       kpi('Calo totale', '−' + fmt(W0 - last) + ' kg', 'color:#0f6e56') +
       kpi('Minimo toccato', fmt(min) + ' kg', '') +
       kpi('Venerdì su venerdì', dVen === null ? 'in attesa' : (dVen <= 0 ? '−' : '+') + fmt(Math.abs(dVen)) + ' kg',
-          dVen === null ? '' : (dVen <= -0.7 ? 'color:#0f6e56' : 'color:#a32d2d'));
+          dVen === null ? '' : (dVen <= -0.8 ? 'color:#0f6e56' : 'color:#a32d2d'));
 
     var h = '<table style="margin-top:18px"><thead><tr><th>Data</th><th class="num">Peso</th><th class="num">Fame</th><th>Note</th></tr></thead><tbody>';
     rows.slice().reverse().slice(0, 10).forEach(function (r) {
@@ -475,7 +518,7 @@ var WEEKEND = {
     chart = new Chart($('chart'), {
       type: 'line',
       data: { labels: labels, datasets: [
-        { label: 'Traiettoria 5+2', data: previsto, borderColor: '#eb6834', borderWidth: 2, borderDash: [6, 5], pointRadius: 0, pointHoverRadius: 4, fill: false, tension: 0.2, spanGaps: false },
+        { label: 'Traiettoria attesa', data: previsto, borderColor: '#eb6834', borderWidth: 2, borderDash: [6, 5], pointRadius: 0, pointHoverRadius: 4, fill: false, tension: 0.2, spanGaps: false },
         { label: 'Reale', data: reale, borderColor: '#2a78d6', backgroundColor: 'rgba(42,120,214,0.10)', borderWidth: 3, fill: true, tension: 0.25, pointRadius: 5, pointBackgroundColor: '#2a78d6', pointBorderColor: '#fff', pointBorderWidth: 2, spanGaps: true }
       ] },
       options: {
@@ -483,7 +526,7 @@ var WEEKEND = {
         interaction: { mode: 'index', intersect: false },
         plugins: { legend: { display: false }, tooltip: { callbacks: { label: function (x) { return x.parsed.y === null ? null : x.dataset.label + ': ' + fmt(x.parsed.y) + ' kg'; } } } },
         scales: {
-          y: { min: 112, max: 118.5, ticks: { color: '#898781', stepSize: 1, callback: function (v) { return v.toFixed(0) + ' kg'; } }, grid: { color: '#e5e3dd' } },
+          y: { min: 113, max: 119, ticks: { color: '#898781', stepSize: 1, callback: function (v) { return v.toFixed(0) + ' kg'; } }, grid: { color: '#e5e3dd' } },
           x: { ticks: { color: '#898781', maxRotation: 0, autoSkipPadding: 14, font: { size: 11 } }, grid: { display: false } }
         }
       }
